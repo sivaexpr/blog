@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <META NAME="KEYWORDS" CONTENT="java, java 8, J2SE 8, Clouser, anonymous class, anonymous method, lambda expression, streams">
+    <title>Java 8 streams - Techjira</title>
+    <script src="/dist/app.min.js" type="application/javascript"></script>
+</head>
+<body>
+<div id="main-container">
+    <section>
+        <script type="text/javascript">
+            fbid = 1;
+            twid = 1;
+            postid = 3102;
+        </script>
+        <div id="leftbar-contents">
+            <div class="barcontents" id="indexcontents">
+                <ul>
+                    <li><a href="#introduction">Introduction</a></li>
+                    <li><a href="#uao">Using aggregate operations</a></li>
+                    <li><a href="#ooe">Order of execution</a></li>
+                    <li><a href="#ooe">Parallel Streams</a></li>
+                </ul>
+            </div>
+        </div>
+        <h2><a id="introduction">Introduction</a></h2>
+        <p> If you're not familiar with lambda expressions refer the <a href="lambdaexp.html">lambda expressions</a> article. Please
+            note that this article is intended to know the basic functionality of <a target="_blank"
+                                                                                     href="https://docs.oracle.com/javase/8/docs/api/index.html?java/util/stream/Stream.html">Stream</a>.
+        </p>
+        <p> Stream is another powerful concept introduced in Java 8 under <a target="_blank"
+                                                                             href="http://jcp.org/en/jsr/detail?id=335">JSR-335</a>.
+            A stream represents a sequence of values and supports different kind of operations on it. It sounds similar to
+            collections and you may have a question like, what is the difference between collections and streams and why this is
+            introduced when collections are already there? Below are the details to get the answer. </p>
+        <p> Collections are dynamic in-memory data structures. It means, collections calculate the element memory before the element
+            is part of the collection. The iterator is used to retrieve these elements in sequence from the collection (source of
+            the data). Let see this with below example.
+        <pre class="prettyprint linenums">
+Integer[] intArray=new Integer[]{1,2,3,4,5};
+List<Integer> intList=new ArrayList<Integer>(Arrays.asList(intArray));
+for(Integer value:intList){
+	System.out.println(value);
+}
+</pre>
+        In the above example, the loop is iterating the list in sequence and printing the values in console. The loop is written by
+        us to iterate these values. This is called external iteration. </p> <p> Streams don't have a storage and designed for the
+        lamda expressions. Streams are created from source. This source can be collections, arrays, a generated function, I/O
+        channel and other data sources. Stream operations are pipelines. Pipeline means a sequence of aggregate operations. Java
+        Stream support filter, map, reduce, find, match and sort aggregation operations. In a simple sentence, Streams are created
+        from data sources (like collections ) and is used to execute the aggregate operations. Streams are defined in
+        java.util.stream package of Java API. Let see an example how it works.
+        <ol>
+            <li>The Stream doesn't have a storage and uses the same data sources
+                <pre class="prettyprint linenums">
+Integer[] intArray=new Integer[]{1,2,3,4,5};
+List<Integer> intList=new ArrayList<Integer>(Arrays.asList(intArray));
+intList.stream().forEach(value->System.out.println(value));
+</pre>
+            </li>
+            <li> The Stream is created from a data source. Here data source is <i>intList</i> object. <a>intList.stream()</a> method
+                will create a <a target="_blank"
+                                 href="https://docs.oracle.com/javase/8/docs/api/index.html?java/util/stream/Stream.html">Stream</a>
+                object. This object is used to perform the aggregate operations.
+            </li>
+            <li> I used <a>forEach()</a> method to iterate the values. With this, we are giving a control to Java API to iterate the
+                elements by giving a functionality that needs to be executed while iterating. <a>forEach()</a> method is not
+                specific to stream. This method is introduced for lambda expressions.
+            </li>
+        </ol>
+        </p> <h2><a id="uao">Using aggregate operations</a></h2>
+        <p>
+        <ol>
+            <li><h5>Stream operations can be a terminal operation.</h5> Stream operations can be a terminal operation. In this case,
+                the stream operation will return a primitive, object or void. As I explained in above example, forEach() method is a
+                terminal operation. Once the operation is executed stream will get closed. See below example, which will count the
+                number of elements.
+                <pre class="prettyprint linenums">
+Integer[] intArray=new Integer[]{1,2,3,4,5};
+List<Integer> intList=new ArrayList<Integer>(Arrays.asList(intArray));
+Stream<Integer> intStream=intList.stream();
+long count=intStream.count();
+System.out.println("Total elements - "+count);
+</pre>
+                Take another example which will print a message if the list contains even number.
+                <pre class="prettyprint linenums">
+Integer[] intArray=new Integer[]{1,2,3,4,5};
+List<Integer> intList=new ArrayList<Integer>(Arrays.asList(intArray));
+Stream<Integer> intStream=intList.stream();
+boolean containsEven=intStream.anyMatch(value->value%2==0);
+System.out.println("Is list contains even ? - "+containsEven);
+</pre>
+                In above example <a>anyMatch()</a> is a terminal method which will take a condition as input and returns true if the
+                condition is matching to any one value from the stream source. Once the terminal operation is executed on stream and
+                if we call another operation again on the same stream will cause an exception.
+                <pre class="prettyprint linenums">
+Integer[] intArray=new Integer[]{1,2,3,4,5};
+List<Integer> intList=new ArrayList<Integer>(Arrays.asList(intArray));
+Stream<Integer> intStream=intList.stream();
+long count=intStream.count();
+boolean containsEven=intStream.anyMatch(value->value%2==0);
+System.out.println("Total elements - "+count);
+System.out.println("Is list contains even ? - "+containsEven);
+</pre>
+                <i>intStream</i> get closed once the <i>count()</i> operation is called. Again we are calling <i>anyMatch()</i>
+                method on closed <i>intStream</i>, it will throw java.lang.IllegalStateException exception.
+            </li>
+            <li><h5>Stream operations can be chained</h5> Chained stream operations produces a new stream. This stream will exist
+                until we call a terminal operations.
+                <pre class="prettyprint linenums">
+Integer[] intArray=new Integer[]{1,2,3,4,5};
+List<Integer> intList=new ArrayList<Integer>(Arrays.asList(intArray));
+Stream<Integer> intStream=intList.stream();
+Stream<Integer> evenIntStream=intStream.filter(value->value%2==0);
+System.out.print("Even numbers are - ");
+evenIntStream.forEach(value->System.out.print(value+" \t"));
+</pre>
+                In above example <i>intStream</i> is a stream which holds data source values. <i>evenIntStream</i> stream is created
+                from <i>filter()</i> operation. <i>filter()</i> operations filters the data source based on the condition that we
+                pass. On <i>evenIntStream</i> I am calling <i>forEach</i> terminal operation. Once I call terminal operation the
+                stream get close. We can write the same program as below.
+                <pre class="prettyprint linenums">
+Integer[] intArray=new Integer[]{1,2,3,4,5};
+List<Integer> intList=new ArrayList<Integer>(Arrays.asList(intArray));
+Stream<Integer> intStream=intList.stream();
+System.out.print("Even number are - ");
+intStream.filter(value->value%2==0)
+         .forEach(value->System.out.print(value+" \t"));
+
+</pre>
+            </li>
+        </ol>
+        </p> <h2><a id="ooe">Order of execution</a></h2>
+        <p> Before using streams, we should know the order of pipeline operations execution. As I said before, Intermediate
+            operation are not executed until we call terminal operations. This is called laziness and we saw this above
+            examples. </p>
+        <p> As a traditional Java programmer we know that when we call any method, caller will not get control until that method is
+            executed completely. But this is not true with the streams. Let's take some example and see how the streams are
+            executed.
+        <pre class="prettyprint linenums">
+ Integer[] intArray=new Integer[]{1,2,3,4,5};
+List<Integer> intList=new ArrayList<Integer>(Arrays.asList(intArray));
+intList.stream()
+       .filter(value->{
+          System.out.println("Filter called for value - "+value);
+          return value%2==0;	
+       })
+       .forEach(value->System.out.println("Even value - "+value));
+</pre>
+        </p> <p> A traditional Java programmer thinks that first the <i>filter()</i> method is executed completely and then for each
+        is called. This is not true with streams. As I said, streams doesn't hold any values and iterates from the source. Due to
+        this, the output of the program looks like this. </p>
+        <pre class="prettyprint command" style="color:#fff">
+Filter called for value - 1
+Filter called for value - 2
+Even value - 2
+Filter called for value - 3
+Filter called for value - 4
+Even value - 4
+Filter called for value - 5
+</pre>
+        <p> First stream will get the first value from the data source <i>intList</i> object and passes the value to <i>filter()</i>
+            method. If the filter returns false, the stream will fetch another value from <i>intList</i> and passes again to filter.
+            If the filter returns true the same value is passed to <i>forEach()</i> method. </p>
+        <h2><a id="ps">Parallel Streams</a></h2>
+        <p> Parallel Streams are another powerful feature to support parallel process on data source. You know that the modern
+            processors are coming with multi cores, which enables us to process more than one task at a time. Parallel streams help
+            us to iterate elements from data source and execute the aggregate operations in quick by executing them in parallel.
+        <pre class="prettyprint linenums">
+Integer[] intArray=new Integer[]{1,2,3,4,5};
+List<Integer> intList=new ArrayList<Integer>(Arrays.asList(intArray));
+intList.parallelStream().forEach(value->System.out.print(value+"\t"));
+</pre>
+        </p> <p> The above example shows how to create a parallel stream and execute. Without streams if you want to execute this
+        with extremal iteration, we need to use the multiple thread concept by considering thread safety (as you know most of the
+        collections are not thread safe). </p>
+        <h2><a id="comments">Comment</a></h2>
+        <script>
+            //prettyPrint();
+            //view.showbookmarkbar();
+        </script>
+    </section>
+    <aside>
+        <div class="aside-section">
+            <div class="aside-title"><h1>Recommended Articles</h1></div>
+            <div class="aside-contents list25px">
+                <ol>
+                    <li><a href="/html/java/rest/http_patch_verb.html">REST API - Using PATCH verb</a></li>
+                    <li><a href="lambdaexp.html">Lambda Expressions</a></li>
+                </ol>
+            </div>
+        </div>
+    </aside>
+</div>
+</div> </body>
+</html>

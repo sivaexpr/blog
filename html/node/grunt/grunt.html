@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <META NAME="KEYWORDS"
+          CONTENT="Java,J2EE,JEE,Node.js,Javascript,WCS,Websphere Commerce Server,npm,node.js,grunt,clustering,load load balancing,Apache,REST services,Spring,Grails,groovy,lambda expressions">
+    <META NAME="ROBOTS" CONTENT="ALL">
+
+    <title>Techjira - Grunt</title>
+
+    <script src="/dist/app.min.js" type="application/javascript"></script>
+
+
+</head>
+
+<body>
+<div id="main-container">
+
+    <section>
+        <script type="text/javascript">
+            fbid = 1;
+            twid = 1;
+            postid = 1001;
+        </script>
+        <div id="leftbar-contents">
+            <div class="barcontents" id="indexcontents">
+                <ul>
+                    <li><a href="#introduction">Introduction</a></li>
+                    <li><a href="#wheretouse">Where to use Grunt</a></li>
+                    <li><a href="#howtoinstall">How to install Grunt</a></li>
+                    <li><a href="#howtouse">How to use Grunt</a></li>
+                    <li><a href="#run">Run Grunt</a></li>
+                    <li><a href="#watch">Watch your scripts</a></li>
+                    <li><a href="#refer">References</a></li>
+                </ul>
+            </div>
+        </div>
+        <h2><a id="introduction">Introduction</a></h2>
+        Almost all modern web applications are using a data-driven approach with single page navigation or responsive design.
+        JavaScript plays a key role in this approach. The complete web site (static/dynamic) is rendered through JS. Hence we need
+        well defined process to validate the JS files and unit tested.
+        <p>Grunt is task based command line tool for JavaScript. The task can be anything. Usually, front end application
+            development will have below tasks</p>
+        <ol>
+            <li>Developers create a small chunk of CSS and JS files as per their modules and merge into a single file</li>
+            <li>Compile the JS to check the compilation errors and warnings</li>
+            <li>Do unit testing</li>
+            <li>Optimize the CSS and JS file by removing unnecessary spaces and comments (minification).</li>
+        </ol>
+        <p>
+            Apart from above tasks there might be other tasks based on the nature of the project.
+        </p>
+        <h2><a id="wheretouse">Where to use Grunt</a></h2>
+        Companies are following continues delivery with go-live when ready. With this approach application will go live for every
+        2-4 weeks time with a small set of functionalities. Within this short span of time the packing and deployment process will
+        kill some time of developers and tester. Not only time also quality of deliverable.
+        <p>
+            To reduce packing time and increase the quality of delivery, we can go for automation tool. If you think about above
+            four steps, what all we can automate? Yes, whatever your thinking is right.
+        </p>
+        <ol>
+            <li>We can automate merges of smaller CSS and JS into one file</li>
+            <li>Compile JS file</li>
+            <li>Execute unit test cases before packing the build</li>
+            <li>Optimize the CSS and JS</li>
+        </ol>
+        <p>
+            All above automation can be done with Grunt. Not only above tasks Grunt allows you to customizes how every you want.
+            Refer <a href="http://gruntjs.com/" target="_blank"> Grunt</a> page to know about tasks and plug-ins supported by grunt.
+        </p>
+        <h2><a id="howtoinstall">How to install Grunt</a></h2>
+
+        <h3>One step before installation </h3>
+        There are some confusions between <a href="http://gruntjs.com/using-the-cli" target="_blank">grunt-cli</a> and grunt. <a
+            href="http://gruntjs.com/using-the-cli" target="_blank">grunt-cli</a> is used to put the grunt command in system path
+        which you can access from any directory.
+        <p>
+            Another important point is we can have multiple versions of grunt in the same machine based on projects need. <a
+                href="http://gruntjs.com/using-the-cli" target="_blank">grunt-cli</a> is responsible to use the specified version in
+            project grunt file.
+        </p>
+        <h3>Node.js Installation </h3>
+        If you already have Node.js installed in your system ignore this step.
+        <p>
+            Grunt is installed on Node.js package manager (<a href="https://www.npmjs.com/" target="_blank">npm</a>). What it means
+            is before using grunt, we need to install stable version of Node.js. Don't worry, you don't need to know about Node.js
+            to use the Grunt but uses Node.js environment to run the Grunt. Use <a href="http://nodejs.org/"
+                                                                                   target="_blank">Node.js</a> link to download the
+            <a href="https://www.npmjs.com/" target="_blank">npm</a>. You can use <b>Download</b> or <b>Install</b> buttons to
+            download the <a href="https://www.npmjs.com/" target="_blank">npm</a>. If you're using 32-bit hardware use download
+            button. You need admin right to install this.
+        </p>
+        <p>
+            Use <a href="https://www.npmjs.com/" target="_blank">npm</a> link to know about npm based tools and frameworks.
+        </p>
+        <h3><a href="http://gruntjs.com/using-the-cli" target="_blank">grunt-cli</a> installation</h3>
+        Installing <a href="http://gruntjs.com/using-the-cli" target="_blank">grunt-cli</a> is very simple. Once you install Node.js
+        go to OS command prompt and run below command.
+        <pre class="prettyprint command">
+	$ npm install -g grunt-cli
+</pre>
+        <p>
+            Above command will install the grunt module in the desired location based on <a href="https://www.npmjs.com/"
+                                                                                            target="_blank">npm</a> configuration.
+            This command will work absolutely fine if you're working with personal network or if your company proxy allows to
+            download the <a href="http://gruntjs.com/using-the-cli" target="_blank">grunt-cli</a> through a network. Your company
+            proxy may block due to various reasons like SSL issues or network authentication.
+        </p>
+        <p>
+            If you want to pass the network authentication to use network, first set the proxy with authentication like below from
+            the command prompt.
+        </p>
+
+        <pre class="prettyprint command">
+	$npm config set proxy http://&lt;username&gt;:&lt;password&gt;@&lt;proxyhost&gt;:&lt;port&gt;
+	$npm config set https-proxy http://&lt;username&gt;:&lt;password&gt;@&lt;proxyhost&gt;:&lt;port&gt;
+</pre>
+        If you don't need a user name and password and want to pass only proxy,
+        <pre class="prettyprint command">
+	$npm config set proxy http://&lt;proxyhost&gt;:&lt;port&gt;
+ 	$npm config set https-proxy http://&lt;proxyhost&gt;:&lt;port&gt;
+</pre>
+        If above approaches are not working and want to use <a href="http://gruntjs.com/using-the-cli" target="_blank">grunt-cli</a>
+        for development purpose, use below commands
+        <ol>
+            <li>Disable <a href="https://www.npmjs.com/" target="_blank">npm</a> strict ssl</li>
+            <pre class="prettyprint command">
+	$npm config set strict-ssl false
+</pre>
+            <li>Install <a href="http://gruntjs.com/using-the-cli" target="_blank">grunt-cli</a></li>
+            <pre class="prettyprint command">
+	$npm install -g grunt-cli
+</pre>
+
+        </ol>
+
+        <h2><a id="howtouse">How to use Grunt</a></h2>
+        As I mentioned above section, we need <a href="https://www.npmjs.com/" target="_blank">npm</a> to use the grunt. Based on
+        project nature you can write your own script or can use
+        <a href="http://gruntjs.com/plugins" target="_blank">grunt plug-ins</a>. Most of the project tasks, we can go with <a
+            href="http://gruntjs.com/plugins" target="_blank">grunt plug-ins</a>. Below diagram shows how to use plug-ins.
+
+        <p class="pageimage"><img src="npm_grunt.png"></p>
+
+        <p>Use below steps to use the existing plug-in in your project</p>
+        Project setup to enable grunt is very simple. To enable grunt, create package.json and gruntfile.js in the project root
+        directory.
+        <h3>package.json</h3>
+        package.json is a metadata file which is used by <a href="https://www.npmjs.com/" target="_blank">npm</a> to understand the
+        project details and dependencies. We can use any text editor to create or edit package.json file. package.json file looks
+        like below
+        <pre class="prettyprint linenums">
+{
+  "name": "my-first-grunt-project",
+  "version": "0.1.0",
+  "devDependencies": {
+    "grunt": "~0.4.5"
+  }
+}
+</pre>
+        The <b>name</b> attribute indicate the name of the project. This can be any project name. <b>version</b> attribute indicates
+        the project version. <b>devDependencies</b> attribute is used to specify the dependencies of your project. In above example,
+        my-first-grunt-project project is dependent on grunt version 0.4.5.
+        <p>
+            Once you're done with package.json use below <a href="https://www.npmjs.com/" target="_blank">npm</a> command from your
+            project root directory to add the dependencies to your project.
+        <pre class="prettyprint command">
+	$ npm install
+</pre>
+        The above command will read package.json and installs all the dependencies as per devDependencies.
+        </p>
+        <p>
+            There are list of grunt plug-ins available to perform different tasks. You can check the <a
+                href="http://gruntjs.com/plugins" target="_blank"> plugin</a> site to know about the grunt plug-ins. If you like to
+            create your own plug-in we can do that. We will discuss the same at further sections.
+        </p>
+        <p>
+            Let say if you want to use <a href="https://github.com/gruntjs/grunt-contrib-uglify" target="_blank">grunt-contrib-uglify</a>
+            plug-in which is used to minify the files using <a href="https://github.com/mishoo/UglifyJS"
+                                                               target="_blank">UglifyJs</a>. We can add this dependency in
+            pacakage.json and use <b>npm install</b> command to install. But if you use this it will try to install all the
+            dependencies even it's already installed. Instead, we can use below command to install the latest version of <a
+                href="https://github.com/gruntjs/grunt-contrib-uglify" target="_blank">grunt-contrib-uglify</a> module and to add
+            the entry in package.json automatically.
+        </p>
+        <pre class="prettyprint command">
+	$npm install grunt-contrib-uglify --save-dev
+</pre>
+        <p>
+            <b>--save-dev</b> parameter is used to store the entry in package.json. After executing the above command if you open
+            the package.json file, it looks like below</p>
+        <pre class="prettyprint linenums">
+{
+  "name": "my-first-grunt-project",
+  "version": "0.1.0",
+  "devDependencies": {
+    "grunt": "~0.4.5",
+	"grunt-contrib-uglify": "^0.7.0"
+  }
+}
+</pre>
+        <h3>gruntfile.js</h3>
+        This is a main file to automate the tasks. This file contains a list of tasks and scripts to execute. Basically gruntfile.js
+        is divided into 4 sections
+        <ol>
+            <li>grunt wrapper function</li>
+            <li>Configure project and tasks</li>
+            <li>Load the tasks or plugins</li>
+            <li>Define default tasks</li>
+        </ol>
+        I am going to explain grunt with a minify js file with uglify plugin as we already installed this plugin in the project
+        using <a href="https://www.npmjs.com/" target="_blank">npm</a>. See package.json section for more details.
+
+        <h4>1. Add grunt wrapper function</h4>
+        Create gruntfile.js in the project root directory where package.json is present. Open gruntfile.js in any text editor and
+        add below method.
+
+        <pre class="prettyprint linenums">
+module.exports = function(grunt) {
+};
+</pre>
+        The above wrapper method should be there in every grunt file and all the grunt code need to write inside this method. This
+        wrapper function is called by grunt task runner when we run the grunt task file.
+        <h4>2. Configure project and task</h4>
+        In this section we are going to configure the variables and tasks. Project task configuration needs to include below method.
+        <pre class="prettyprint linenums">
+grunt.initConfig({
+});
+</pre>
+        This method should be inside the wrapper method.
+        <pre class="prettyprint linenums">
+module.exports = function(grunt) {
+	grunt.initConfig({
+});
+};
+</pre>
+
+        Let start with uglify task configuration
+        <pre class="prettyprint linenums">
+grunt.initConfig({
+    uglify: {
+		build: {
+			src: 'main.js',
+			dest: 'main.min.js'
+    	}
+	}
+});
+</pre>
+        main.js file a normal JS file and we want to remove all comments, white spaces and line breaks using <b>uglify</b> task.
+        <b>uglify</b> task contains <b>build</b> sub task which will take the source and destination. <b>ugligy</b> task will remove
+        spaces, escape characters and comments from the source and generate the destination file.
+
+        <h4>3. Load the tasks or plugins</h4>
+        The next step is to mention about which all plugins and tasks are used in gurntfile.js. Use <b>grunt.loadNpmTasks()</b>
+        method to load the module. To load <a href="https://github.com/gruntjs/grunt-contrib-uglify" target="_blank">grunt-contrib-uglify</a>
+        module, use it like below
+        <pre class="prettyprint linenums">
+module.exports = function(grunt) {
+	grunt.loadNpmTasks('grunt-contrib-uglify');
+}
+</pre>
+        <h4>4. Define default tasks</h4>
+        In this section, we will declare what all are the tasks needs to execute by default when we run the grunt task runner from
+        command prompt. Use <b>grunt.registerTask()</b> method to specify the task names.
+        <pre class="prettyprint linenums">
+module.exports = function(grunt) {
+	grunt.registerTask('default', ['uglify']);
+}
+</pre>
+        <p class="pageimage"><img src="grunt_structure.png"></p>
+        Complete gruntfile.js looks like bellow.
+        <pre class="prettyprint linenums">
+//wrapper method
+module.exports = function(grunt) {
+	//config section
+	grunt.initConfig({
+		uglify: {
+         	build: {
+				src: 'main.js',
+				dest: 'main.min.js'
+			}
+		}
+	});
+	//load task or plugin
+	grunt.loadNpmTasks('grunt-contrib-uglify');
+	//register tasks
+	grunt.registerTask('default', ['uglify']);
+};
+</pre>
+        Grunt has API. Refer <a href="http://gruntjs.com/api/grunt" target="_blank">http://gruntjs.com/api/grunt</a> link to know
+        more about API.
+        <h2><a id="run">Run Grunt</a></h2>
+        Now, it's time to run the grunt. Go to the root directory of your project where <b>gruntfile.j</b>s is present and execute
+        below command.
+        <pre class="prettyprint command">
+	$ grunt
+</pre>
+        <p>
+            After execution of grunt, you will see main.min.js file which is minified version.
+        </p>
+        <h2><a id="watch">Watch your scripts</a></h2>
+        Grunt supports to watch all your tasks automatically. What we need to do is configure the task names to watch.
+        <p>
+            Go to project root directory where <b>package.json</b> is present and add the plug-in dependency. Use below command to
+            do this.
+        </p>
+        <pre class="prettyprint command">
+	$npm install grunt-contrib-watch  --save-dev
+</pre>
+        <p>
+            Open <b>gruntfile.js</b> and add <b>watch</b> task
+        </p>
+        <pre class="prettyprint linenums">
+//wrapper method
+module.exports = function(grunt) {
+//config section
+	grunt.initConfig({
+		uglify: {
+          	build: {
+				src: 'main.js',
+				dest: 'main.min.js'
+			}
+		},
+		watch: {
+			scripts: {
+				files: ['main.js'],
+				tasks: ['uglify'],
+				options: {
+					spawn: false,
+				}
+			} 
+		}	
+			 
+	});
+	//load task or plugin
+	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-contrib-watch');
+	//register tasks
+	grunt.registerTask('default', ['uglify','watch']);
+};
+</pre>
+        Save the changes and run the <b>grunt</b> command from command line. Now you can see that the watch task keeps on monitoring
+        the resources that you mentioned in watch task. Open main.js file and modify the file. Watch task automatically uglify the
+        resource.
+
+        <h2><a id="refer">References</a></h2>
+        <p>Documentation - <a href="http://gruntjs.com/getting-started" target="_blank">http://gruntjs.com/getting-started</a></p>
+        <p>API - <a href="http://gruntjs.com/api/grunt" target="_blank">http://gruntjs.com/api/grunt</a></p>
+        <p>Plugins - <a href="http://gruntjs.com/plugins" target="_blank">http://gruntjs.com/plugins</a></p>
+
+        <h2><a id="comments">Comments</a></h2>
+
+        <script>
+            //prettyPrint();
+            //view.showbookmarkbar();
+        </script>
+
+    </section>
+    <aside>
+        <div class="aside-section">
+            <div class="aside-title">
+                <h1>Recommended Articles</h1>
+            </div>
+            <div class="aside-contents list25px">
+                <ol>
+                    <li><a href="usecase1.html">Grunt - User case 1</a>
+
+                </ol>
+            </div>
+        </div>
+    </aside>
+
+</div>
+</div>
+
+</body>
+</html>
