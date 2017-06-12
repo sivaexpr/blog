@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <META NAME="KEYWORDS"
+          CONTENT="clustering,cluster,load balancing,load balancer,balanncer,lb,Apache,mod_proxy,mod_jk,nginx,HTTP server,web server,load balance,proxy,session sticky,failover ,AJP,router">
+    <META NAME="ROBOTS" CONTENT="ALL">
+
+    <title>Techjira - Apache mod_proxy</title>
+
+    <script src="/dist/app.min.js" type="application/javascript"></script>
+
+
+</head>
+
+<body>
+<div id="main-container">
+    <section>
+        <script type="text/javascript">
+            fbid = 1;
+            twid = 1;
+            postid = 2002;
+        </script>
+        <div id="leftbar-contents">
+            <div class="barcontents" id="indexcontents">
+                <ul>
+                    <li><a href="#introduction">Introduction</a></li>
+                    <li><a href="#usecase">Use Case</a></li>
+                    <li><a href="#envsetup">Environment setup</a></li>
+                    <li><a href="#config">Config load balancer</a></li>
+                    <li><a href="#lbtype">Changing load balancer algorithm</a></li>
+                    <li><a href="#ssticky">Session stickyness</a></li>
+                    <li><a href="#backup">Setup backup/failover server</a></li>
+                    <li><a href="#refer">References</a></li>
+                </ul>
+            </div>
+        </div>
+        <h2><a id="introduction">Introduction</a></h2>
+        <p>
+            Before going through this article we strongly recommend you to go through <a href="loadbalancer.html">Load balancer</a>
+            article to understand the basic concept of load balancer.
+        </p>
+        <p>
+            Apache support load balancing through two modules i.e., <b>mod_proxy</b> and <b>mod_jk</b>. Use below comparison to
+            choose the right module.
+        </p>
+        <h3>mod_proxy </h3>
+        <ul>
+            <li>Comes by default with Apache web server</li>
+            <li>Simple to configure</li>
+            <li>This module is divided into mod_proxy_http, mod_proxy_ajp and mod_proxy_balancer sub modules</li>
+            <li><b>mod_proxy_http</b> is suitable to exchange encrypted information from httpd to web/application server. Supports
+                HTTP and HTTPS protocols
+            </li>
+            <li><b>mod_proxy_ajp</b> is suitable expose SSL information to web/application server. Supports only AJP protocol</li>
+            <li><b>mod_proxy_balancer</b> is suitable for clustering and load balancing. supports HTTP, HTTPS and AJP3 protocols
+            </li>
+        </ul>
+        <h3>mod_jk</h3>
+        <ul>
+            <li> mod_jk is mature, stable and extremely flexible. It is under active development by members of the Tomcat
+                community
+            </li>
+            <li>Comes as a separate module. Hence we need to build, integrate and maintain the module</li>
+            <li>Supports large packet size</li>
+            <li>Supports advanced failure detection</li>
+            <li>Uses AJP protocol and doesn't support encryption</li>
+            <li>Suitable to use if SSL information exposed to web application</li>
+
+        </ul>
+        <p>below sections tell you how to configure and use <b>mod_proxy</b> module</p>
+        <h2><a id="usecase">Usecase</a></h2>
+        <p>
+
+            Install the Apache httpd server ion port 80 and two instances of Tomcat under port 8080 and 8081. Both the Tomcat
+            instances should install an application under context path of <b>/loadbalancetest</b>. Use direct tomcat URLs like <a
+                href="http://localhost:8080/loadbalancetest" target="_blank">http://localhost:8080/loadbalancetest</a> to process
+            the request through instance 1 on tomcat server and <a href="http://localhost:8081/loadbalancetest" target="_blank">http://localhost:8081/loadbalancetest</a>
+            to process the request through instance 2.
+        </p>
+        <p>
+            Now, instead of using the actual tomcat URL use Apache HTTP server like <a href="http://localhost/loadbalancetest"
+                                                                                       target="_blank">http://localhost/loadbalancetest</a>.
+            Load balancer should route the request to instance 1 or instance 2 based on load balancer method.
+        </p>
+        <p class="pageimage"><img src="mod_proxy.png"></p>
+        <p>
+            <b>Note</b> - Multiple instances can run on the same server or different servers. we can use the server ip address
+            instead of using localhost.
+        </p>
+        <h2><a id="envsetup">Environment setup </a></h2>
+        <h3>Apache</h3>
+        <p>
+            <a href="http://httpd.apache.org/download.cgi" target="_blank">Download</a> the binaries from the <a
+                href="http://httpd.apache.org/download.cgi" target="_blank">Apache</a> web site and follow the instructions which
+            are mentioned in the Apache web site to install.
+        </p>
+        <h3>Tomcat</h3>
+        <p>
+            This setup is optional. you can use any server which supports Servlet and JSP containers. If you want to use Tomcat, <a
+                href="https://tomcat.apache.org/download-80.cgi" target="_blank"> download </a> the binaries and install it in two
+            ports like 8080 and 8081.
+        </p>
+        <h3>Web application setup</h3>
+        <p>
+        <ul>
+            <li>Install 2 or more tomcat instances in local system with different ports or install in two different remote systems
+            </li>
+            <li>Download the war file from <a href="/war/loadbalancetest.war" target="_blank">link</a>
+            <li>Open <b>conf/context.xml</b> file from a tomcat root directory of instance 1 and add below element
+                <pre class="prettyprint lang-html">
+&lt;Parameter name="instancename" value="Server 1" override="false/"&gt;
+</pre>
+            </li>
+            <li>Do the same for all other instances and give the instance name accordingly</li>
+            <li>Start/restart all the instances</li>
+            <li>Check the instances from the browser that all tomcat instances are up and running with the application. For example,
+                to test the instance 1, open the browser and type <a href="http://localhost:8080/loadbalancetest" target="_blank">http://localhost:8080/loadbalancetest </a>(I
+                installed instance 1 in 8080 port) and it should display the "Request served from instance - Server 1" message in
+                the browser.
+            </li>
+        </ul>
+        </p>
+        <h2><a id="config">Configure load balancer</a></h2>
+        <p>
+            Let's start the load balancer configuration to route the request to one of the two instances based on the algorithm.
+        </p>
+        <p>
+            <ul>
+                <li>Enable mod_proxy_balancer module
+                    <ul>
+                        <li>
+                            Open Apache Http server root directory and open <b>http.conf</b> file from <b>config</b> folder. Use any
+                            text editor to open this file
+                        </li>
+                        <li>
+                            Search for the word "proxy_balancer_module" and see if the line is started with <b>#</b> (comment
+                            symbol). If it starts with <b>#</b> remove the <i>#</i> symbol and save the file
+                        </li>
+                        <li>
+                            <b>mod_proxy_balancer</b> module depends on below modules. Make sure below modules are enabled in <b>http.conf</b>
+                            file.
+                            <ul>
+                                <li>mod_proxy</li>
+                                <li>mod_proxy_http</li>
+                                <li>mod_slotmem_shm</li>
+                                <li>mod_lbmethod_byrequests</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    Scroll down <b>http.conf</b> file till end of the file and place the below configuration.
+                    <pre class="prettyprint linenums">
+&lt;IfModule proxy_balancer_module&gt;
+    Include conf/extra/proxy-balancer.conf
+&lt;/IfModule&gt;
+</pre>
+                    Here, I am creating a separate configuration file to define the load balancer. <b>proxy-balancer.conf</b> file
+                    holds the configuration of load balancer
+                </li>
+                <li>
+                    Open <b>config/extra</b> folder from apache root folder and create <b>proxy-balancer.conf</b> file
+                </li>
+                <li>
+                    open <b>proxy-balancer.conf</b> file by using any text editor and add below entries
+                    <pre class="prettyprint linenums">
+&lt;Proxy balancer://mycluster&gt;
+    BalancerMember http://127.0.0.1:8080
+    BalancerMember http://127.0.0.1:8081
+&lt;/Proxy&gt;
+ProxyPass /loadbalancetest balancer://mycluster/loadbalancetest
+</pre>
+        <p>
+            In bove script, <b>mycluster</b> is a name of the group. This can be anything and you can give the name as you wish.
+            Directive <b>BalancerMember</b> is used to define the group member
+        </p>
+        </li>
+        <li>
+            Start the Apache server. See logs/error.log file to troubleshoot
+        </li>
+        </ul>
+        </p>
+        <h3>Test load balancing</h3>
+        <p>
+            Hence Apache httpd server contains a load balancer, I need to pass the request through a load balancer. Based on
+            algorithm, load balancer will route the request to Server 1 or Server 2. To pass the request through load balancer open
+            the browser and send a request to <a href="http://localhost/loadbalancetest" target="_blank">http://localhost/loadbalancetest</a>
+            URL.
+        </p>
+        <p>
+            In the first request load balancer will choose server1 and if you refresh the browser load balancer will send the
+            request to server2.
+        </p>
+        <p class="pageimage"><img src="response1.png"></p>
+        <p class="pageimage"><img src="response2.png"></p>
+
+        <h2><a id="lbtype">Changing load balancer algorithm</a></h3>
+            <p>mod_proxy_balancer supports three algorithms i.e.,
+            <ul>
+                <li>byrequest</li>
+                <li>bybusyness</li>
+                <li>bytraffic</li>
+            </ul>
+            Refer Apache <a href="http://httpd.apache.org/docs/2.2/mod/mod_proxy_balancer.html" target="_blank">documentation</a>to
+            know about the details of these algorithms.
+            </p>
+            <p>
+                By default mod_proxy module uses <b>byrequest</b> algorithm. We can change this algorithm by using <b>ProxySet</b>
+                directive. For example, use below script to change the algorithm to <b>bytraffic</b>.
+            <pre class="prettyprint linenums">
+&lt;Proxy balancer://mycluster&gt;
+    BalancerMember http://127.0.0.1:8080 
+    BalancerMember http://127.0.0.1:8081
+    <b>ProxySet lbmethod=bytraffic </b>
+&lt;/Proxy&gt;
+ProxyPass /loadbalancetest balancer://mycluster/loadbalancetest
+</pre>
+            </p>
+            <p>
+                Some times, based on server configuration we might need to define the load ratio or load factor to process the
+                request. we can specify the load factor by using <b>loadfactor</b> attribute. For example,
+            <pre class="prettyprint linenums">
+&lt;Proxy balancer://mycluster&gt;
+    BalancerMember http://127.0.0.1:8080 <b>loadfactor=2</b>
+    BalancerMember http://127.0.0.1:8081 <b>loadfactor=1</b>
+    <b>ProxySet lbmethod=bytraffic </b>
+&lt;/Proxy&gt;
+ProxyPass /loadbalancetest balancer://mycluster/loadbalancetest
+</pre>
+            </p>
+            <p>
+                Now open the browser and send the request to URL <a href="http://localhost/loadbalancetest" target="_blank">http://localhost/loadbalancetest</a>.
+                The request will be served from server 1. Refresh the browser, still it is server from server 1 only. If you refresh
+                the request at 3rd time, the request will be server from server 2. <b>loadfactor</b> attribute value is the key to
+                choose the server. As per above configuration request will be served in 2:1 ratio.
+            </p>
+            <p>
+                To know when to use which algorithm go through <a href="loadbalancer.html">Load balancer</a> artical
+            </p>
+
+            <h2><a id="ssticky">Session stickyness</a></h2>
+            <p>
+                Session stickiness is a technique which is used by load balancer to route the request from the same server which is
+                served before. For example, let's say when you login into the system, the request is served by server 1. That mean
+                your session details will be store in server 1. until you logout, your request need to serve from server 1 because
+                your session is stored in server 1. if your request goes to server 2 and server 2 doesn't know about your login
+                details, it will ask you to login again. To avoid this we can configure session stickyness in a load balancer. With
+                this technique the load balancer will keep looking at previouly served server details. This approach has a concern
+                that if the served server i.e., server 1 is down we will lose the session. we can solve this issue by using session
+                replication. See the <a href="clustering.html">clustring</a> artical to know more on session replication.
+            </p>
+            <p>
+                mod_proxy module maintains the session stickiness through cookies or URL encoding. Some load balancers will maintain
+                the session even with client IP. If the client IP address is a dynamic like in DHCP environmnet, keeping IP address
+                for session tracking is not a effective solution.
+            </p>
+            <p>
+                Setting the server information in cookie can be done at the application level or through load balancer without
+                coding. But URL encoding should be done through backend application. Let see how to do session stikyness through
+                cookies at load balancer.
+            <ul>
+                <li>Enable <b>mod_headers</b> module in <b>http.conf</b> file(uncomment this module if it is commented)</li>
+                <li>Update <i>proxy-balancer.conf</i> file with below details
+                    <pre class="prettyprint linenums">
+<b>Header add Set-Cookie "ROUTEID=.%{BALANCER_WORKER_ROUTE}e; path=/loadbalancetest" env=BALANCER_ROUTE_CHANGED</b>
+&lt;Proxy balancer://mycluster&gt;
+    BalancerMember http://127.0.0.1:8080 <b>route=node1</b>
+    BalancerMember http://127.0.0.1:8081 <b>route=node2</b>
+    <b>ProxySet stickysession=ROUTEID</b>
+&lt;/Proxy&gt;
+ProxyPass /loadbalancetest balancer://mycluster/loadbalancetest
+</pre>
+                </li>
+            </ul>
+            </p>
+            <p>
+                Where
+            <ul>
+                <li><b>route=node1</b> and <b>route=node2</b> are used to define the name of the server. we can give any name to the
+                    server. This name is used to identify the server.
+                </li>
+                <li><b>ProxySet stickysession=ROUTEID</b> tells that which cookie need to be used to identify the session. Here I am
+                    using <b>ROUTEID</b> as a cookie name. You can define your own name but should match at line 1.
+                </li>
+                <li>
+                    Line 1 sets the cookie with cookie name as <b>ROUTEID</b> and value as server name i.e., node1 or node 2 for the
+                    path "/loadbalancetest"
+                </li>
+                <li>
+                    <b>BALANCER_WORKER_ROUTE</b> is a Apache environment variable which hold the server name i.e., node1 or node2 in
+                    this example
+                </li>
+                <li>
+                    <b>BALANCER_ROUTE_CHANGED</b> is a Apache environment variable which is used to identify that the user request
+                    is served by any server or the first time request. That means, this variable is used to identify that the cookie
+                    <b>ROUTEID</b> is present in the request. If this cookie is present, takes the cookie values and sends the
+                    request to server as per cookie values. If not present, as per load balancer algorithm it will assign to another
+                    server and creates the cookie with an appropriate server name as a value.
+                </li>
+            </ul>
+            </p>
+            <p>
+                Now, once you add the sticyness details in configuration restart the server and hit <a
+                    href="http://localhost/loadbalancetest" target="_blank">http://localhost/loadbalancetest</a> URL from the
+                browser. If you see the cookie you should have a cookie with name as ROUTEID and value as .node1. That means the
+                request is served through server 1 and if you keep on refresh the browser load balancer will route the request to
+                the same server.
+            </p>
+
+            <h2><a id="backup">Setup backup/failover server</a></h2>
+            <p>
+                We can set up the backup/failover server. This server is also called as hot spare. Backup server will be served the
+                request only if no primary servers are able to serve the request. Configuring hot spare is very simple, use <b>status=+H</b>
+                attribute to server. For example, update <i>proxy-loadbalncer.conf</i> file as below and restart/reload the server
+            <pre class="prettyprint linenums">
+&lt;Proxy balancer://mycluster&gt;
+	BalancerMember http://127.0.0.1:8080 
+	BalancerMember http://127.0.0.1:8081 <b>status=+H</b>
+&lt;/Proxy&gt;
+ProxyPass /loadbalancetest balancer://mycluster/loadbalancetest
+</pre>
+            </p>
+            <p>
+                Open the browser and give request to <a href="http://localhost/loadbalancetest" target="_blank">http://localhost/loadbalancetest</a>.
+                You will get the response from server 1. Even if you refresh the page n number of times, you will get the response
+                only from server 1. Now make server 1 down and refresh the browser. You will start getting the response from server
+                2.
+            </p>
+
+            <h2><a id="refer">References</a></h2>
+            <p><a href="http://httpd.apache.org/docs/2.4/mod/mod_proxy_balancer.html" target="_blank">http://httpd.apache.org/docs/2.4/mod/mod_proxy_balancer.html</a>
+            </p>
+
+            <h2><a id="comments">Comment</a></h2>
+
+            <script>
+                //prettyPrint();
+                //view.showbookmarkbar();
+            </script>
+
+    </section>
+    <aside>
+        <div class="aside-section">
+            <div class="aside-title">
+                <h1>Recommended Articles</h1>
+            </div>
+            <div class="aside-contents list25px">
+                <ol>
+                    <li><a href="loadbalancer.html">Load balancer</a>
+                    <li><a href="nginx.html">Load balancer - Nginx</a>
+                </ol>
+            </div>
+        </div>
+
+    </aside>
+
+</div>
+</div>
+</body>
+</html>

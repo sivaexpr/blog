@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <META NAME="KEYWORDS"
+          CONTENT="Java,J2EE,JEE,Node.js,Javascript,WCS,Websphere Commerce Server,npm,node.js,grunt,clustering,load load balancing,Apache,REST services,Spring,Grails,groovy,lambda expressions">
+    <META NAME="ROBOTS" CONTENT="ALL">
+
+    <title>Techjira - Grunt use case</title>
+
+    <script src="/dist/app.min.js" type="application/javascript"></script>
+
+
+</head>
+
+<body>
+<div id="main-container">
+
+    <section>
+        <script type="text/javascript">
+            fbid = 1;
+            twid = 1;
+            postid = 1002;
+        </script>
+        <h2><a id="usecase">Use case</a></h2>
+        There are dozens of JS based MVC frameworks in the market to develop front end applications and has its own pros and
+        concerns. We need to prepare lots of JS files to fetch data from services and render it on the pages. The major challenge
+        with this is response time. Most of the site has SLA as 2 seconds max
+        to fetch the data and render it.
+        <p>
+            Let me take an example of my blog www.techjira.com. To build this blog I used below resources.
+        </p>
+        <ol>
+            <li>Two css files. One css file to design the style of my blog another one is to format the example source code</li>
+            <li>Set of JS files. JS files contain two types. One is to handle UI, events and services of my blog and second is third
+                party JS libraries. I used jquery.js, prettify.js and require.js .
+            </li>
+            <li>Some static images which are approximately 20kb in size.</li>
+        </ol>
+        <p>
+            The only goal of this use case is load the page as quickly as I set the SLA as 2 seconds.
+        </p>
+        <h3>Challenges</h3>
+        1. As I have too many resources I need to reduce the network calls to load the page.
+
+        <h3>Solution </h3>
+        <ol>
+            <li>Minify the css and JS files as I don't care about comments and spaces for production. These may be helpful for only
+                development
+            </li>
+            <li>Compress the image files without disturbing the quality of the images</li>
+            <li>Combine set of JS files into one file to reduce the network calls</li>
+            <li>Load only necessary resources on the first page and load rest of resources after page load</li>
+            <li>Use the single page navigation instead of page reload while navigating pages</li>
+        </ol>
+        <p>See below diagram which explains the goal of use case.</p>
+        <p class="pageimage"><img src="usecase.png"></p>
+        <h3>Implementation</h3>
+        <p>In above solution nothing to do with grunt for last point. I used my own technique for this.</p>
+        <p>
+            I used below Grunt plugins to achieve the goal.
+        </p>
+        <ol>
+            <li><a href="https://github.com/gruntjs/grunt-contrib-requirejs" target="_blank">grunt-contrib-requirejs</a> - to minify
+                and compress the css and JS code and concat the JS files.
+            </li>
+            <li><a href="https://github.com/gruntjs/grunt-contrib-imagemin" target="_blank">grunt-contrib-imagemin</a> - to minify
+                the images
+            </li>
+            <li><a href="https://github.com/gruntjs/grunt-contrib-watch" target="_blank">grunt-contrib-watch</a> - to monitor the
+                resources
+            </li>
+            <li><a href="https://github.com/jney/grunt-htmlcompressor" target="_blank">grunt-htmlcompressor</a> - to remove the
+                minify the HTML files
+            </li>
+            <li><a href="https://www.npmjs.com/package/grunt-remove-logging" target="_blank">grunt-grunt-remove-logging</a> - to
+                remove console logs from JS files
+            </li>
+            <li><a href="https://github.com/gruntjs/grunt-contrib-copy" target="_blank">grunt-contrib-copy</a> - to copy the some
+                resources to specified location
+            </li>
+            <li><a href="https://github.com/gruntjs/grunt-contrib-clean" target="_blank">grunt-contrib-clean</a> - to clean up some
+                of resources which are not required for production
+            </li>
+        </ol>
+        Refere <a href="http://gruntjs.com/plugins" target="_blank">grunt plugin</a> page to know more about all supporting plugins.
+        <p>
+            Let's start the implementation,
+        </p>
+        <ol>
+
+            <li>My project root folder looks like below
+                <p class="pageimage"><img src="folder_structure.png"></p>
+                <p>js floder contains bounch of javascript files like handlers, models, views, utilities and other stuff.</p>
+            </li>
+            <li>Create <i>package.json</i> in the project root directory and add the metadata. My <i>package.json </i> looks like
+                below.
+                <pre class="prettyprint linenums">
+{
+  "name": "Techjira",
+  "version": "0.1.0",
+  "devDependencies": {
+    
+  }
+}
+</pre>
+            </li>
+            <li>Open command prompt and go to the project root directory.
+                <p>Assuming you already installed <a href="https://www.npmjs.com/" target="_blank">npm</a> and <a
+                        href="http://gruntjs.com/using-the-cli" target="_blank">grunt-cli</a>. If not yet done go to <a
+                        href="grunt.html">How to install grunt</a> section and finish the installation first.
+                </p>
+            </li>
+            <li>Now I need to add the grunt and plugin information. Run below commands one by one to add the meta data information
+                in <i>package.json </i>
+                <pre class="prettyprint linenums">
+	$npm install grunt --save-dev
+	$npm install grunt-contrib-requirejs --save-dev
+	$npm install grunt-htmlcompressor --save-dev
+	$npm install grunt-contrib-imagemin --save-dev
+	$npm install grunt-contrib-watch --save-dev
+	$npm install grunt-grunt-remove-logging --save-dev
+	$npm install grunt-contrib-copy --save-dev
+	$npm install grunt-contrib-clean--save-dev
+</pre>
+
+                <p>Above commands will install the plug-ins and add the entry in <i>package.json</i> devDependency. Now <i>package.json </i>
+                    looks like below </p>
+                <pre class="prettyprint linenums">
+{
+  "name": "Techjira",
+  "version": "0.1.0",
+  "destination":"/wamp/www/techjira",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-copy": "^0.7.0",
+    "grunt-contrib-imagemin": "^0.9.2",
+    "grunt-contrib-requirejs": "^0.4.4",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-htmlcompressor": "^0.1.10",
+    "grunt-remove-logging": "^0.2.0"
+  }
+}
+</pre>
+                We can define our own properies in <i>package.json </i> file. In above code <b>destination</b> attribute is my own
+                property and I use this property to copy all required files into this folder.
+            </li>
+
+            <li>Create <i>gruntfile.js</i> in project root directory and copy below code.
+                <pre class="prettyprint linenums">
+//wrapper method start
+module.exports = function(grunt) {
+	//config section start
+	grunt.initConfig({
+		pkg: grunt.file.readJSON('package.json'),
+		requirejs: {
+			compile: {
+				options: {
+					baseUrl: "js",
+					preserveLicenseComments: false,
+					allowSourceOverwrites:true,
+					modules:[{
+						name:"app.min",
+						create:true,
+						include:["main.js","handler.js","views.js","util.js","overlay.js","handler/header","handler/footer","handler/overlay","handler/nav","lib/prettify.js"]
+					}],
+					dir:"<%=pkg.destination%>/js"
+					}
+				}
+			},
+		htmlcompressor: {
+			compile: {
+				files: [{ // Dictionary of files
+					expand: true,
+					src: ['**/*.html','*.php','!node_modules/**'],
+					dest: '<%=pkg.destination%>'
+					}],
+				options: {
+					type: 'html',
+					preserveServerScript: true
+					}
+				}
+			},
+		removelogging: {
+			dist: {
+				src: "<%=pkg.destination%>/js/**/*.js",
+				}
+			},
+		clean: {
+			js: ["<%=pkg.destination%>/js/*.js", "!<%=pkg.destination%>/js/*.min.js"]
+			},
+		copy: {
+ 			main: {
+   				files: [
+      				// includes files within path 
+					{expand: true, src: ['css/*','images/**','js/lib/**',"*.php"], dest: '<%=pkg.destination%>/'}
+					]
+				}
+			},
+		watch: {
+			scripts: {
+				files: ['**/*.*','*.*'],
+				tasks: ['htmlcompressor','requirejs', 'removelogging','clean','copy'],
+				options: {
+					spawn: false,
+					}
+				} 
+			}	 
+	});
+	//config section end
+
+	//load task or plugin
+	grunt.loadNpmTasks('grunt-contrib-requirejs');
+	grunt.loadNpmTasks('grunt-htmlcompressor');
+	grunt.loadNpmTasks("grunt-remove-logging");
+	grunt.loadNpmTasks('grunt-contrib-clean');
+	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-contrib-copy');
+
+	//register tasks
+	grunt.registerTask('default', ['htmlcompressor','removelogging','requirejs','clean','copy']);
+
+	};
+//Wrapper method end
+</pre>
+
+            </li>
+
+        </ol>
+        <p>
+            <a href="http://gruntjs.com/api/grunt" target="_blank">Grunt API</a> support various functionalities. In Line 5, I am
+            reading <i>package.json</i> file and keeping the data in <b>pky</b> attribute as a object. I can you this attribute to
+            get the properties of <i>package.json</i>.
+        </p>
+        <p>Please note, I added <i>grunt.js</i> logic as simple as possible. So that i can use as many plug-ins as possible and
+            understand it easy. This script can be optimized better and let see how much you can do :)</p>
+        <h2><a id="comments">Comment</a></h2>
+
+        <script>
+            //prettyPrint();
+            //view.showbookmarkbar();
+        </script>
+    </section>
+    <aside>
+        <div class="aside-section">
+            <div class="aside-title">
+                <h1>Recommended Articles</h1>
+            </div>
+            <div class="aside-contents list25px">
+                <ol>
+                    <li><a href="grunt.html">Grunt - JS Task Runner</a>
+
+                </ol>
+            </div>
+        </div>
+    </aside>
+
+</div>
+</div>
+
+</body>
+</html>
