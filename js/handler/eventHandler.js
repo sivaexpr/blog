@@ -4,8 +4,10 @@ import navHandler from "./nav";
 import headerHandler from "./header";
 import footerHandler from "./footer";
 import util from "../util/util";
+import overlayHandler from "./overlay";
+import overlayView from "../view/overlay";
 
-var eventHandler = {};
+let eventHandler = {};
 
 eventHandler.registerEvents = function () {
     $(document).on("click", "header", function (event) {
@@ -31,7 +33,7 @@ eventHandler.registerEvents = function () {
     });
 
     $(document).on("click", "#overlay", function (event) {
-        eventHandler.handleOverlayEvents(event);
+        overlayHandler.handleOverlayEvents(event);
         return;
     });
 
@@ -48,7 +50,7 @@ eventHandler.registerEvents = function () {
     });
 
     $(document).on("click", ".pageimage img", function (event) {
-        overlay.showImage($(event.target).attr("src"));
+        overlayView.showImage($(event.target).attr("src"));
     });
 
     $(document).on("click", ".baritem", function (event) {
@@ -90,7 +92,7 @@ eventHandler.registerEvents = function () {
         event.preventDefault();
         eventHandler.handleComments(event);
     });
-}
+};
 
 eventHandler.commonEvents = function (event, page) {
     var url = eventHandler.isAnchorEvent($(event.target));
@@ -107,7 +109,7 @@ eventHandler.commonEvents = function (event, page) {
             window.open(url, $(event.target).attr("target"));
         } else if (url.indexOf("#") != 0) {
             if (eventHandler.isOVerlayEvent($(event.target))) {
-                overlay.show(url, $(event.target).attr("title"));
+                overlayView.show(url, $(event.target).attr("title"));
             } else {
                 eventHandler.handleAnchorEvents(url, page);
             }
@@ -116,21 +118,22 @@ eventHandler.commonEvents = function (event, page) {
         }
     }
 
-}
+};
+
 eventHandler.handleAnchorEvents = function (url, page) {
     view.showStatusBar();
     view.addStatusBarWidth("25%");
     util.getContents(page, view);
-}
+};
 
 eventHandler.isAnchorEvent = function (target) {
     if (target.is("a") || target.attr("href") != null) {
         return target.attr("href");
     }
-}
+};
 
 eventHandler.isOVerlayEvent = function (target) {
     return target.hasClass("overlay");
-}
+};
 
 export default eventHandler;

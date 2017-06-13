@@ -33,38 +33,39 @@ const view = {
         tag: "aside"
     }
 };
-view.addHeader=function(html){
-    var headerData=$(html).filter("#header").html();
-    view.addContents(view.HEADER,headerData);
+view.addHeader = function (html) {
+    var headerData = $(html).filter("#header").html();
+    view.addContents(view.HEADER, headerData);
 };
 
-view.addFooter=function(html){
-    var footerData=$(html).filter("#footer").html();
-    view.addContents(view.FOOTER,footerData);
+view.addFooter = function (html) {
+    var footerData = $(html).filter("#footer").html();
+    view.addContents(view.FOOTER, footerData);
 };
 
-view.addNav=function(html){
-    var navData=$(html).filter("#nav").html();
-    view.addContents(view.NAVIGATION,navData);
+view.addNav = function (html) {
+    var navData = $(html).filter("#nav").html();
+    view.addContents(view.NAVIGATION, navData);
 };
 
-view.showBase=function(html,page){
+view.showBase = function (html, page) {
     view.addHeader(html);
     view.addNav(html);
     view.addFooter(html);
     view.addCommon(html);
+    view.showbookmarkbar();
 };
 
-view.addCommon=function(html){
-    var commonData=$(html).filter("#common").html();
-    view.addContents(view.COMMON,commonData);
+view.addCommon = function (html) {
+    var commonData = $(html).filter("#common").html();
+    view.addContents(view.COMMON, commonData);
 };
 
 
 view.header_footer = null;
 
 view.loadContents = (html, isheader) => {
-    if(isheader){
+    if (isheader) {
         view.header_footer = html;
         view.showBase(html);
         var data = view.getBaseAsideData();
@@ -118,7 +119,7 @@ view.addContents = (page, html) => {
             view.hidebookmarkbar();
             view.updateTitle(html);
             view.addCommentSection();
-           // view.updatePageCounter();
+            // view.updatePageCounter();
             prettify.prettyPrint();
             $("aside").fadeIn();
             $("#search-results").fadeOut();
@@ -270,8 +271,8 @@ view.addCommentSection = function () {
     var commentDiv = $('#comments');
     if (typeof commentDiv.html() != 'undefined') {
         $('section').append(view.getCommentSection());
-        view.feedbackMessage();
-       // view.showComments();
+        // view.feedbackMessage();
+        view.showComments();
     }
 }
 
@@ -285,9 +286,10 @@ view.feedbackMessage = function () {
 };
 
 view.showComments = function () {
-    $.get("/comments.php?pageid=" + postid, function (data) {
-        $(".comment-block").html($(data).filter("#comment-block").html());
-    });
+    /*$.get("/comments.php?pageid=" + postid, function (data) {
+     $(".comment-block").html($(data).filter("#comment-block").html());
+     });*/
+    $(".fb-comments").attr("data-href", window.location.href);
 };
 
 view.showStatusBar = function () {
@@ -300,7 +302,7 @@ view.hideStatusBar = function () {
 
 view.addStatusBarWidth = function (length) {
     //$('#statusbar').animate({width:length},500);
-   //  $('#statusbar').css("width", length);
+    //  $('#statusbar').css("width", length);
 };
 
 export default view;

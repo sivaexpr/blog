@@ -1,7 +1,8 @@
 import $ from "jquery";
+import eventHandler from "./eventHandler";
 
-var eventHandler = {};
-eventHandler.handleHeader = function (event) {
+var headerHandler = {};
+headerHandler.handleHeader = function (event) {
     event.preventDefault();
 
     var target = $(event.target);
@@ -31,4 +32,4 @@ eventHandler.handleHeader = function (event) {
      */
 };
 
-export default eventHandler;
+export default headerHandler;
