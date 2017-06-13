@@ -4,15 +4,11 @@ import navHandler from "./nav";
 import headerHandler from "./header";
 import footerHandler from "./footer";
 import util from "../util/util";
-<<<<<<< HEAD
 import overlayHandler from "./overlay";
 import overlayView from "../view/overlay";
 
 let eventHandler = {};
-=======
 
-var eventHandler = {};
->>>>>>> 63b61030b79194aeb0da77bdeeda2620319e899c
 
 eventHandler.registerEvents = function () {
     $(document).on("click", "header", function (event) {
@@ -38,11 +34,7 @@ eventHandler.registerEvents = function () {
     });
 
     $(document).on("click", "#overlay", function (event) {
-<<<<<<< HEAD
         overlayHandler.handleOverlayEvents(event);
-=======
-        eventHandler.handleOverlayEvents(event);
->>>>>>> 63b61030b79194aeb0da77bdeeda2620319e899c
         return;
     });
 
@@ -59,11 +51,7 @@ eventHandler.registerEvents = function () {
     });
 
     $(document).on("click", ".pageimage img", function (event) {
-<<<<<<< HEAD
         overlayView.showImage($(event.target).attr("src"));
-=======
-        overlay.showImage($(event.target).attr("src"));
->>>>>>> 63b61030b79194aeb0da77bdeeda2620319e899c
     });
 
     $(document).on("click", ".baritem", function (event) {
@@ -105,11 +93,7 @@ eventHandler.registerEvents = function () {
         event.preventDefault();
         eventHandler.handleComments(event);
     });
-<<<<<<< HEAD
 };
-=======
-}
->>>>>>> 63b61030b79194aeb0da77bdeeda2620319e899c
 
 eventHandler.commonEvents = function (event, page) {
     var url = eventHandler.isAnchorEvent($(event.target));
@@ -126,11 +110,7 @@ eventHandler.commonEvents = function (event, page) {
             window.open(url, $(event.target).attr("target"));
         } else if (url.indexOf("#") != 0) {
             if (eventHandler.isOVerlayEvent($(event.target))) {
-<<<<<<< HEAD
                 overlayView.show(url, $(event.target).attr("title"));
-=======
-                overlay.show(url, $(event.target).attr("title"));
->>>>>>> 63b61030b79194aeb0da77bdeeda2620319e899c
             } else {
                 eventHandler.handleAnchorEvents(url, page);
             }
@@ -138,39 +118,23 @@ eventHandler.commonEvents = function (event, page) {
             window.location = url;
         }
     }
-
-<<<<<<< HEAD
 };
 
-=======
-}
->>>>>>> 63b61030b79194aeb0da77bdeeda2620319e899c
 eventHandler.handleAnchorEvents = function (url, page) {
     view.showStatusBar();
     view.addStatusBarWidth("25%");
     util.getContents(page, view);
-<<<<<<< HEAD
 };
-=======
-}
->>>>>>> 63b61030b79194aeb0da77bdeeda2620319e899c
 
 eventHandler.isAnchorEvent = function (target) {
     if (target.is("a") || target.attr("href") != null) {
         return target.attr("href");
     }
-<<<<<<< HEAD
 };
 
 eventHandler.isOVerlayEvent = function (target) {
     return target.hasClass("overlay");
 };
-=======
-}
 
-eventHandler.isOVerlayEvent = function (target) {
-    return target.hasClass("overlay");
-}
->>>>>>> 63b61030b79194aeb0da77bdeeda2620319e899c
 
 export default eventHandler;

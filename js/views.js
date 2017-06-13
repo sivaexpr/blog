@@ -33,7 +33,6 @@ const view = {
         tag: "aside"
     }
 };
-<<<<<<< HEAD
 view.addHeader = function (html) {
     var headerData = $(html).filter("#header").html();
     view.addContents(view.HEADER, headerData);
@@ -50,53 +49,24 @@ view.addNav = function (html) {
 };
 
 view.showBase = function (html, page) {
-=======
-view.addHeader=function(html){
-    var headerData=$(html).filter("#header").html();
-    view.addContents(view.HEADER,headerData);
-};
-
-view.addFooter=function(html){
-    var footerData=$(html).filter("#footer").html();
-    view.addContents(view.FOOTER,footerData);
-};
-
-view.addNav=function(html){
-    var navData=$(html).filter("#nav").html();
-    view.addContents(view.NAVIGATION,navData);
-};
-
-view.showBase=function(html,page){
->>>>>>> 63b61030b79194aeb0da77bdeeda2620319e899c
     view.addHeader(html);
     view.addNav(html);
     view.addFooter(html);
     view.addCommon(html);
-<<<<<<< HEAD
     view.showbookmarkbar();
 };
 
 view.addCommon = function (html) {
     var commonData = $(html).filter("#common").html();
     view.addContents(view.COMMON, commonData);
-=======
-};
 
-view.addCommon=function(html){
-    var commonData=$(html).filter("#common").html();
-    view.addContents(view.COMMON,commonData);
->>>>>>> 63b61030b79194aeb0da77bdeeda2620319e899c
 };
 
 
 view.header_footer = null;
 
 view.loadContents = (html, isheader) => {
-<<<<<<< HEAD
     if (isheader) {
-=======
-    if(isheader){
->>>>>>> 63b61030b79194aeb0da77bdeeda2620319e899c
         view.header_footer = html;
         view.showBase(html);
         var data = view.getBaseAsideData();
@@ -150,11 +120,7 @@ view.addContents = (page, html) => {
             view.hidebookmarkbar();
             view.updateTitle(html);
             view.addCommentSection();
-<<<<<<< HEAD
             // view.updatePageCounter();
-=======
-           // view.updatePageCounter();
->>>>>>> 63b61030b79194aeb0da77bdeeda2620319e899c
             prettify.prettyPrint();
             $("aside").fadeIn();
             $("#search-results").fadeOut();
@@ -306,13 +272,8 @@ view.addCommentSection = function () {
     var commentDiv = $('#comments');
     if (typeof commentDiv.html() != 'undefined') {
         $('section').append(view.getCommentSection());
-<<<<<<< HEAD
         // view.feedbackMessage();
         view.showComments();
-=======
-        view.feedbackMessage();
-       // view.showComments();
->>>>>>> 63b61030b79194aeb0da77bdeeda2620319e899c
     }
 }
 
@@ -326,16 +287,10 @@ view.feedbackMessage = function () {
 };
 
 view.showComments = function () {
-<<<<<<< HEAD
     /*$.get("/comments.php?pageid=" + postid, function (data) {
      $(".comment-block").html($(data).filter("#comment-block").html());
      });*/
     $(".fb-comments").attr("data-href", window.location.href);
-=======
-    $.get("/comments.php?pageid=" + postid, function (data) {
-        $(".comment-block").html($(data).filter("#comment-block").html());
-    });
->>>>>>> 63b61030b79194aeb0da77bdeeda2620319e899c
 };
 
 view.showStatusBar = function () {
@@ -348,11 +303,7 @@ view.hideStatusBar = function () {
 
 view.addStatusBarWidth = function (length) {
     //$('#statusbar').animate({width:length},500);
-<<<<<<< HEAD
     //  $('#statusbar').css("width", length);
-=======
-   //  $('#statusbar').css("width", length);
->>>>>>> 63b61030b79194aeb0da77bdeeda2620319e899c
 };
 
 export default view;

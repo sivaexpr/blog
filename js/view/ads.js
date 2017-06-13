@@ -6,13 +6,10 @@ view.showAds=function(){
 	//view.showFlipkartBanner();
 	//view.showFlipkartFeatureDeals();
 	//view.showFlipkartBestDeals();
-	view.showResponsiveAd();
-	view.showGoogleHoAd();
-<<<<<<< HEAD
+	//view.showResponsiveAd();
+	//view.showGoogleHoAd();
 	//view.showGoogleBanner();
-=======
-	view.showGoogleBanner();
->>>>>>> 63b61030b79194aeb0da77bdeeda2620319e899c
+
 }
 
 view.showGoogleBanner=function(){
