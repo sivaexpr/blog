@@ -8,7 +8,11 @@ view.showAds=function(){
 	//view.showFlipkartBestDeals();
 	view.showResponsiveAd();
 	view.showGoogleHoAd();
+<<<<<<< HEAD
 	//view.showGoogleBanner();
+=======
+	view.showGoogleBanner();
+>>>>>>> 63b61030b79194aeb0da77bdeeda2620319e899c
 }
 
 view.showGoogleBanner=function(){
