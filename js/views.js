@@ -33,6 +33,7 @@ const view = {
         tag: "aside"
     }
 };
+
 view.addHeader = function (html) {
     var headerData = $(html).filter("#header").html();
     view.addContents(view.HEADER, headerData);
@@ -142,7 +143,7 @@ view.showbookmarkbar = () => {
     //$('.leftbar').fadeIn();
     var bookmarkcontents = $('#leftbar-contents').html();
     if (typeof bookmarkcontents != 'undefined') {
-        barhtml = barhtml + '<div class="baritem" id="index" title="Index">' + bookmarkcontents + '</div>';
+        barhtml = barhtml + '<div class="baritem" id="index" title="Index"><i class="fa fa-bookmark" aria-hidden="true"></i>' + bookmarkcontents + '</div>';
         flag = true;
     }
     /*if(typeof bookmarkcontents=='undefined'){
@@ -159,7 +160,7 @@ view.showbookmarkbar = () => {
      }*/
 
     if ($("#comments").html()) {
-        barhtml = barhtml + '<a href="#comments"  class="baritem" id="comment" title="Comment"></a>';
+        barhtml = barhtml + '<a href="#comments"  class="baritem" id="comment" title="Comment"><i class="fa fa-commenting-o" aria-hidden="true"></i></a>';
         flag = true;
     }
 
@@ -170,7 +171,7 @@ view.showbookmarkbar = () => {
      }*/
 
     if ((typeof fbid != "undefined") && fbid != 0) {
-        barhtml = barhtml + '<div class="baritem" id="like" title="Like">' +
+        barhtml = barhtml + '<div class="baritem" id="like" title="Like"><i class="fa fa-thumbs-up" aria-hidden="true"></i>' +
             '<div class="barcontents" id="likecontents">' +
             '<ul>' +
             '<li>' +

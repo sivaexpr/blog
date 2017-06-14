@@ -24,11 +24,11 @@ navHandler.handleNavEvents = function (event) {
     });
 
     $('nav').mouseleave(function () {
-        navHandler.hideNavMenu();
+        //navHandler.hideNavMenu();
     });
 
     $('#nav-submenu').mouseleave(function () {
-        navHandler.hideNavMenu();
+       // navHandler.hideNavMenu();
     });
 
     $('#sub-menu').on('mouseover', 'ul li', function () {
@@ -44,7 +44,7 @@ navHandler.handleNavEvents = function (event) {
     });
 
 
-}
+};
 
 navHandler.showNavMenu = function () {
     $('#nav-submenu').slideDown('slow');

@@ -573,11 +573,9 @@ footer span {
 .baritem {
     width: 25px;
     height: 25px;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: 25px;
-    padding-bottom: 10px;
-    display: block
+    display: block;
+    text-align: center;
+    font-weight: bolder;
 }
 
 .baritem:hover {
@@ -588,15 +586,30 @@ footer span {
 }
 
 #index {
-    background-image: url(../images/label.png)
+    background-color: #abf;
+}
+
+#index i {
+    color: #b00;
+    vertical-align: middle;
 }
 
 #comment {
-    background-image: url(../images/comment.png)
+    background-color: #09f;
+    color: white;
+}
+
+#comment i {
+    vertical-align: middle;
+}
+
+#like i {
+    vertical-align: middle;
+    color: white;
 }
 
 #like {
-    background-image: url(../images/like.png)
+    background-color: #0088bf;
 }
 
 .barcontents {
@@ -606,7 +619,9 @@ footer span {
     padding: 5px 8px;
     color: #1E88E5;
     border: thin solid;
-    display: none
+    display: none;
+    text-align: left;
+    font-weight: normal;
 }
 
 .barcontents ul {

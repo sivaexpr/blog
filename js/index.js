@@ -9,6 +9,7 @@ const postid = 0;
 
 $(document).ready(() => {
     view.loadCSS("/css/style.css");
+    view.loadCSS("/css/font-awesome.min.css");
     view.loadContents(headerFooterHtml, true);
     eventHandler.registerEvents();
 
