@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <META NAME="KEYWORDS"
+          CONTENT="Git, web hosting, hosting, domain, domain hosting, static web hosting">
+    <title>Techjira - Github | Free web hosting</title>
+    <script src="/dist/app.min.js" type="application/javascript"></script>
+</head>
+
+<body>
+
+<div id="main-container">
+    <section>
+        <script type="text/javascript">
+            fbid = 1;
+        </script>
+        <div id="leftbar-contents">
+            <div class="barcontents" id="indexcontents">
+                <ul>
+                    <li><a href="#introduction">Introduction</a></li>
+                    <li><a href="#create-page">Create a Page in Github</a></li>
+                    <li><a href="#git-configure">configuration Github with custom domain</a></li>
+                </ul>
+            </div>
+        </div>
+        <h2><a id="introduction">Introduction</a></h2>
+        <p>
+            What is the first thing coming into your mind when you want to explore something? The first thing we do is take out a
+            smart phone from your pocket and search in internet. Internet is primary thing for every. Internet users are grown
+            drastically in past couple of users. If you search for “internet users” in google, you will find out surprising results.
+            For any business irrespective of their
+            size the easiest way to reach out to the customers is internet. It’s not limited only for business. Internet is the
+            primary channel
+            to explain to others about your innovation and experience. Internet helps you to access the contents around the clock
+            with cost effective and convenient way.
+        </p>
+        <p>
+            Getting into internet is very simple. Technically, what all you need is a domain and webpages. Domain is a unique name
+            to reach your webpages like <a target="_blank" href="http://www.techjira.com">www.techjira.com</a>. There are a lot of
+            internet domain providers in market. I did my domain
+            registration through <a target="_blank" href="http://www.godaddy.com">www.godaddy.com</a>. You can choose the domain
+            providers as you wish. Choose the domain provider and
+            register a domain.
+        </p>
+        <p>
+            Once you register the domain you need a web pages to reach your contents. These contents could be a plain text, images,
+            music files, videos etc. If you know the HTML, CSS and JavaScript you can design the web pages or else you can hire
+            someone to design or get free web templates from internet. After designing the web pages, you need to link these files
+            to your domain. You can’t link this files until unless you have a public IP server. We need to keep these webpages into
+            public IP system and link to domain. This is called hosting. Like domain name providers, there are a lot of hosting
+            providers in the market. Majority of thee domain providers will provider hosting as well but you need to pay money for
+            these. Before choosing the web hosting providers, we need to see if they provide the infrastructure which suits for our
+            web page. For example, if you are planning to have a business transaction or dynamic web pages you need right software
+            installed in your web hosting servers.
+        </p>
+        <p>
+            If you are planning to have a standard or static contents in you web pages and don’t need any special
+            softwares(basically called static web hosting) we can choose free web hosting providers like Github. Yes, we can have a
+            web hosting in Github without paying a single penny. This is very useful for the people who want to have a web site with
+            static web pages like having company profile, business brochure or personal profiles. Use below steps to create a page
+            in Github and map to your domain.
+        </p>
+        <h2><a id="create-page">Create a Page in Github</a></h2>
+        <p>
+            Creating a page in Githib is a first step to you to host your files. Follow Steps mentioned in <a target="_blank"
+                                                                                                              href="https://pages.github.com/">
+            page</a>.
+            Don’t forget to create your repo with <i>.github.io</i> suffix. For example, if you want to create a repository
+            something like
+            <i>techjira</i> then use name as <i>techjira.github.io</i>. if you don’t give this suffix, it will still work but the
+            default page
+            will be rendered from <i>README.md</i> file. If you give a suffix, it will pick <i>index.html</i> as a default page.
+        </p>
+        <h2><a id="git-configure">configuration Github with custom domain</a></h2>
+        <p>
+            To map your custom domain, you should know how to add DNS records. If you don’t know how to do it, contact your domain
+            provider. But most of the domain providers will have a web page to manage your DNS records. Here I am using <a
+                target="_blank" href="http://www.godaddy.com">godaddy</a> DNS
+            page to give the explanation. There is a good documentation avalable how to use custom URL with <a target="_blank"
+                                                                                                               href="https://help.github.com/articles/using-a-custom-domain-with-github-pages/">Github
+            pages</a> but you need to go through multiple
+            links to achieve this. There are two different type of domains i.e., sub domain and apex domain. Sub domain usually
+            comes
+            with <i>www</i>. For example <a target="_blank" href="http://www.techjira.com">www.techjira.com</a> is sub domain. Apex
+            domain doesn’t have <i>www</i>. For example
+            <a target="_blank" href="http://techjira.com">http://techjira.com</a> is a
+            apex domain. DNS configuration is different for sub domains and apex. Before doing configuration first add your domain
+            in github page.
+        <ol>
+            <li>Login into Gitgub and select the page from the repositories and click on Settings</li>
+            <li>Scroll down until you see Github pages. If you already not yet enabled the pages, select the branch to keep your
+                web pages. Most of the time its Master and click on Save button.
+            </li>
+            <li>Once you enabled the page option, give the domain name and click on Save button. You will see the success message
+                with your website name. The moment you save domain, you will have a file called CNAME in your repository.
+            </li>
+        </ol>
+        </p>
+        <p>Once you are done with Github configuration go to DNS configuration.</p>
+
+        <h2><a id="domain-configure">Configure domain with DNS provider</a></h2>
+        <ol>
+            <li>First login into DNS provider website and go to DNS setting</li>
+            <li>Remove all the entries if you have any. Make sure you don’t have A records or CNAME records</li>
+            <li>If you are using sub domain(WWW) add an entry of CNAME with value as YOUR-GITHUB-USERNAME.github.io. for example, if
+                you have a Github user as “test” and then the entry should be test.gitgub.io
+            </li>
+            <li>If you have apex domain, then add add entry of A with the IP address of 192.30.252.153 or 192.30.252.154.</li>
+            <li>If you have both sub domain and apex then you need both entries</li>
+            <li>Once your configuration is done access your website for browser. Please note that some DNS providers will take upto
+                1 day to refresh your records. If doesn’t work wait for some time and try again. Below are the steps to verify your
+                configuration
+            </li>
+        </ol>
+
+        <h2><a id="verify-config">Verify configuration</a></h2>
+
+        <p>
+            You can verify the configuration you did using multiple ways. You can also check online. Go to
+            https://toolbox.googleapps.com/apps/dig/ and click on A OR CNAME to verify the records.
+        </p>
+
+    </section>
+    <aside>
+        <div class="aside-section">
+            <div class="aside-title">
+                <h1>Recommended Articles</h1>
+            </div>
+            <div class="aside-contents list25px">
+                <ol>
+                    <li><a href="/html/loadbalancer/nginx.html">Load balancer - Nginx</a>
+                </ol>
+            </div>
+        </div>
+
+    </aside>
+
+</div>
+</div>
+</body>
+</html>

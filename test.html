@@ -1,0 +1,20 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Teschjira - Test</title>
+<script>
+	function length(){
+		var message="Box1  length : "+document.getElementsByName("box1")[0].value.trim().length;
+		message=message+"\nBox2  length : "+document.getElementsByName("box2")[0].value.trim().length;
+		alert(message);
+	}
+</script>
+</head>
+
+<body>
+	300 characters <input name="box1" type="text" multiple="multiple" maxlength="300"/><br/>
+    200 characters <input name="box2" type="text" multiple="multiple" maxlength="200"/><br/>
+    <input type="button" value="check length" onclick="javascript:length()"/>
+</body>
+</html>
