@@ -6,8 +6,8 @@ view.showAds=function(){
 	//view.showFlipkartBanner();
 	//view.showFlipkartFeatureDeals();
 	//view.showFlipkartBestDeals();
-	//view.showResponsiveAd();
-	//view.showGoogleHoAd();
+	view.showResponsiveAd();
+	view.showGoogleHoAd();
 	//view.showGoogleBanner();
 
 }
