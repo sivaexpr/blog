@@ -129,7 +129,7 @@ eventHandler.handleAnchorEvents = function (url, page) {
 eventHandler.isAnchorEvent = function (target) {
     if (target.is("a") || target.attr("href") != null) {
         return target.attr("href");
-    }else if(target.parent().is("a")){
+    }else if(target.parent().is("a") || target.parent().attr("href")){
         return target.parent().attr("href");
     }
 };

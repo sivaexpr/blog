@@ -201,11 +201,14 @@ nav ul li:HOVER {
     background-color: #eee;
     word-wrap: break-word;
     overflow: hidden;
-    text-align: center
+    text-align: center;
+    cursor: pointer;
+    color: #603;
 }
 
 .nav-sub-left ul li:HOVER {
-    background-color: #c7e6f5;
+    /*background-color: #c7e6f5;*/
+    background-color: white;
     border-radius: 8px 0 0 8px
 }
 
