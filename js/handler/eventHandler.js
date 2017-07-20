@@ -22,6 +22,12 @@ eventHandler.registerEvents = function () {
         return;
     });
 
+    $(document).on("click", ".social", function (event) {
+        footerHandler.handleFooter(event);
+        return;
+    });
+
+
     $(document).on("mouseover mouseleave", "nav", function (event) {
         navHandler.handleNavEvents(event);
         return;

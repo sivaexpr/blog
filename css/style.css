@@ -1,3 +1,6 @@
+nav{
+    font-size: 0.9rem;
+}
 header ul li, nav ul li {
     display: inline
 }
@@ -39,10 +42,10 @@ a {
 }
 
 header {
-    color: #0099cf;
-    background-color: #fff;
+    background-color: #0099cf !important;
+    color: white;
     padding: 5px;
-    height: 55px
+    line-height: 35px;
 }
 
 form {
@@ -107,12 +110,16 @@ th {
 }
 
 #logo {
-    height: 55px;
-    width: 200px;
+   /* height: 55px;
+    width: 200px;*/
     float: left;
-    margin-left: 10px;
+    margin-left: 5%;
     cursor: pointer;
-    background-image: url(../images/logo.png)
+    color: white;
+    font-size: 2rem;
+    font-family: cursive;
+    font-weight: bold;
+   /* background-image: url(../images/logo.png)*/
 }
 
 #tech-nav {
@@ -145,7 +152,7 @@ nav, nav a {
 }
 
 nav {
-    background-color: #0088bf;
+    /*background-color: #0088bf;
     background-image: linear-gradient(top, #0088bf 31%, #0099cf 66%, #0088bf 83%);
     background-image: -o-linear-gradient(top, #0088bf 31%, #0099cf 66%, #0088bf 83%);
     background-image: -moz-linear-gradient(top, #0088bf 31%, #0099cf 66%, #0088bf 83%);
@@ -153,7 +160,10 @@ nav {
     background-image: -ms-linear-gradient(top, #0088bf 31%, #0099cf 66%, #0088bf 83%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#0088bf, endColorstr=#0099cf);
     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(.31, #0088bf), color-stop(.66, #0099cf), color-stop(.83, #0088bf));
-    line-height: 30px
+    */
+    line-height: 40px;
+    font-family: sans-serif;
+    margin-left: 15%;
 }
 
 nav ul {
@@ -176,8 +186,9 @@ nav ul li:HOVER {
 #nav-submenu {
     position: absolute;
     width: 100%;
-    background-color: #c7e6f5;
-    z-index: 998
+    background-color: #c7eafb;
+    z-index: 998;
+    left: 0;
 }
 
 .nav-sub-left {
@@ -198,7 +209,7 @@ nav ul li:HOVER {
     height: 100px;
     margin: 10px;
     box-shadow: 5px 5px 5px #666;
-    background-color: #eee;
+    background-color: #fafbfc;
     word-wrap: break-word;
     overflow: hidden;
     text-align: center;
@@ -231,11 +242,16 @@ nav ul li:HOVER {
 
 section {
     width: 68%;
-    padding: 10px 10px 10px 35px;
-    background-color: #fff;
     line-height: 22px;
     letter-spacing: 1px;
-    min-height: 300px
+    min-height: 300px;
+}
+
+article{
+    background-color: #fff;
+    padding: 10px 10px 10px 35px;
+    font-size: 0.9rem;
+    border: 1px solid #abc;
 }
 
 .artical-thumb, .artical-thumb img {
@@ -256,6 +272,10 @@ section a {
     padding-left: 10px
 }
 
+.artical-block div{
+    font-size: 0.9rem;
+}
+
 .artical-section h1 {
     font-size: 20px;
     display: inline-block;
@@ -267,7 +287,16 @@ section a {
 }
 
 .articals ul {
-    padding-left: 60px
+    /*padding-left: 60px*/
+}
+
+.articals ul li{
+    border: 1px solid #cdf;
+    padding: 12px;
+    background-color: white;
+    margin-bottom: 12px;
+    max-height: 265px;
+    overflow: hidden;
 }
 
 .articals ul li:before {
@@ -278,9 +307,30 @@ section a {
     font-weight: 700
 }
 
+.articals .logo{
+    float: left;
+}
+
 .artical-subtitle {
     color: gray;
-    margin-top: -10px
+    margin-top: -7px;
+    font-weight: normal;
+}
+
+.artical-subtitle .artical-author{
+    font-size: 0.7em;
+    color: #1E88E5;
+}
+
+.artical-block .image{
+    float: left;
+    max-width: 43%;
+    padding-right: 10px;
+}
+
+.artical-block .image img{
+    max-width: 100%;
+    max-height: 180px;
 }
 
 .artical-subtitle img {
@@ -430,7 +480,8 @@ footer span {
 }
 
 #main-container {
-    min-height: 7in
+    min-height: 7in;
+    background-color: #eef;
 }
 
 .inline {
@@ -443,36 +494,47 @@ footer span {
     color: gray
 }
 
-#facebook {
-    background-image: url(../images/social/fb.png)
+#facebook .fa:before{
+    vertical-align: middle;
+    color: #3b5998;
+    font-weight: bold;
 }
 
+.social-nav #facebook .fa:before{
+    font-size: 1rem;
+}
 #twitter {
     background-image: url(../images/social/twitter.png)
 }
 
-#youtube {
-    background-image: url(../images/social/youtube.png)
+.social-nav #youtube .fa:before{
+    font-size: 1rem;
+}
+#youtube .fa:before{
+    color: black;
 }
 
-.social {
+.social-nav{
+    position: absolute;
+    margin-right: 50px;
+    right: 0;
+    top: 0;
+    line-height: 20px;
+}
+.social{
+    background-color: #eee;
+}
+.social-nav .social {
     width: 25px;
     height: 25px;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: 15px;
-    text-indent: -900em;
-    color: #333;
-    line-height: 100%;
-    white-space: nowrap;
+    color: #eee;
     display: inline-block;
-    position: relative;
-    margin: 0 2px 5px 0;
-    background-color: #aaa;
+
+    text-align: center;
 }
 
 .social:HOVER {
-    background-color: #eee
+    background-color: #ddd;
 }
 
 .list25px ol li {
@@ -1016,12 +1078,14 @@ li.L1, li.L3, li.L4, li.L5, li.L7, li.L9 {
 }
 .java:before {
     content: "Ja";
+    font-size: 0.7rem !important;
     background-color: #0088BF;
 }
 
 .js:before {
     content: "Js";
     background-color: #e5bb31;
+    font-size: 1rem !important;
 }
 
 .fa:before {
@@ -1047,6 +1111,6 @@ li.L1, li.L3, li.L4, li.L5, li.L7, li.L9 {
 }
 
 .article-indent {
-    padding-right: 18px;
-    margin-left: -60px;
+    padding-right: 12px;
+    /*margin-left: -60px;*/
 }

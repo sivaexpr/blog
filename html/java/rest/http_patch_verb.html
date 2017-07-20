@@ -2,64 +2,78 @@
 <html>
 <head>
 
-    <META NAME="KEYWORDS" CONTENT="clustering,load balancing,Apache,mod_proxy,mod_jk,nginx,HTTP server,web server,cluster,load balance,proxy, session sticky,failover ">
-    <META NAME="ROBOTS" CONTENT="ALL"> 
-    
+    <META NAME="KEYWORDS"
+          CONTENT="clustering,load balancing,Apache,mod_proxy,mod_jk,nginx,HTTP server,web server,cluster,load balance,proxy, session sticky,failover ">
+    <META NAME="ROBOTS" CONTENT="ALL">
+
     <title>Techjira - Java Tips | Use PATCH verb</title>
-    
+
     <script src="/dist/app.min.js" type="application/javascript"></script>
 
 
 </head>
 
 <body>
-	
-    <div id="main-container">
-       <section>
-			<script type="text/javascript">
-                fbid=1;
-                twid=1;
-                postid=3001;
-            </script>
-            
+
+<div id="main-container">
+    <section>
+        <script type="text/javascript">
+            fbid = 1;
+            twid = 1;
+            postid = 3001;
+        </script>
+        <article>
             <h2>REST API - Update resource partially Using HTTP PATCH verb</h2>
-                <p>
-                	Representational state transfer (REST) is a stateless software architecture which is widely used in all sectors including mobile, cloud and social networking 
-                	applications. REST service uses the standard HTTP methods(GET, POST, PUT, DELETE) for CRUD operations, which we called as verbs in REST architecture.
-                </p>
-                <p>
-                	Generally we use these verbs,
-                	<ol>
-                		<li>GET - to get the given resource from server</li>
-                		<li>POST - to create a new resource </li>
-                		<li>PUT - to update the existing resource</li>
-                		<li>DELETE - to delete the resource from server</li>
-                	</ol>    
-                </p>
-                
-                <p>
-                	For example, let say if you want to develop a REST service to create and manage profile. The profile contains first name, last name, email, phone number and address. usually, POST verb is used to create
-                	a new profile and PUT verb can be used to update the profile. Imagine, you want to develop a REST service to update only email or phone number. Which REST verb you will use?
-                	do you have a PUT verb in mind? if yes, noting wrong. We can use the PUT verb to update the field, but doesn't make sense because usually we use a PUT verb to update the complete profile not just for few fields. 
-                </p>	
-                
-                <p>
-                	Apart from standard HTTP methods, in March 2010 IETF introduced a non-standard HTTP method called PATCH (<a href="http://tools.ietf.org/html/rfc5789" target="_blank">RFC5789</a>)
-                	for REST services. The PATH verb is similar to PUT verb. PUT verb is used to update the existing resource completely, but the PATH verb is used to update the resource partially.
-               </p>	
-                
-               <p>
-                	In the above example, we can use the PATCH verb to update the partial fields like updating only email or phone number.
-                </p>
-                
-            <h2><a id="">Using Apache HttpClient </a> </h2>
+            <p>
+                Representational state transfer (REST) is a stateless software architecture which is widely used in all
+                sectors including mobile, cloud and social networking
+                applications. REST service uses the standard HTTP methods(GET, POST, PUT, DELETE) for CRUD operations,
+                which we called as verbs in REST architecture.
+            </p>
+            <p>
+                Generally we use these verbs,
+            <ol>
+                <li>GET - to get the given resource from server</li>
+                <li>POST - to create a new resource</li>
+                <li>PUT - to update the existing resource</li>
+                <li>DELETE - to delete the resource from server</li>
+            </ol>
+            </p>
+
+            <p>
+                For example, let say if you want to develop a REST service to create and manage profile. The profile
+                contains first name, last name, email, phone number and address. usually, POST verb is used to create
+                a new profile and PUT verb can be used to update the profile. Imagine, you want to develop a REST
+                service to update only email or phone number. Which REST verb you will use?
+                do you have a PUT verb in mind? if yes, noting wrong. We can use the PUT verb to update the field, but
+                doesn't make sense because usually we use a PUT verb to update the complete profile not just for few
+                fields.
+            </p>
+
+            <p>
+                Apart from standard HTTP methods, in March 2010 IETF introduced a non-standard HTTP method called PATCH
+                (<a href="http://tools.ietf.org/html/rfc5789" target="_blank">RFC5789</a>)
+                for REST services. The PATH verb is similar to PUT verb. PUT verb is used to update the existing
+                resource completely, but the PATH verb is used to update the resource partially.
+            </p>
+
+            <p>
+                In the above example, we can use the PATCH verb to update the partial fields like updating only email or
+                phone number.
+            </p>
+
+            <h2><a id="">Using Apache HttpClient </a></h2>
             <p>Below example show you how to use PATCH verb by using Apache HttpClient API.</p>
             <p>
-            	The HTTP PATCH method will be supported from Apache <a href="https://hc.apache.org/index.html" target="_blank">Http-Components Client 4.2</a> onwards. 
-            	With this version we can use <a href="http://hc.apache.org/httpcomponents-client-ga/httpclient/apidocs/org/apache/http/client/methods/HttpPatch.html" target="_blank">HttpPatch</a> class directly.
-            	See below example,
+                The HTTP PATCH method will be supported from Apache <a href="https://hc.apache.org/index.html"
+                                                                       target="_blank">Http-Components Client 4.2</a>
+                onwards.
+                With this version we can use <a
+                    href="http://hc.apache.org/httpcomponents-client-ga/httpclient/apidocs/org/apache/http/client/methods/HttpPatch.html"
+                    target="_blank">HttpPatch</a> class directly.
+                See below example,
             </p>
-<pre class="prettyprint linenums">
+            <pre class="prettyprint linenums">
 Map<String,String> reqData=new HashMap<String, String>();
 reqData.put("email", "info@techjira.com");
 		
@@ -70,9 +84,9 @@ httpPatch.setEntity(inputData);
 </b>		
 CloseableHttpClient httpClient = HttpClients.createDefault();
 CloseableHttpResponse response = httpClient.execute(<b>httpPatch</b>);
-</pre>            
-			<p>Maven dependency</p>
-<pre class="prettyprint linenums">
+</pre>
+            <p>Maven dependency</p>
+            <pre class="prettyprint linenums">
 &lt;dependency&gt;
     &lt;groupId&gt;org.apache.httpcomponents&lt;/groupId&gt;
     &lt;artifactId&gt;httpclient&lt;/artifactId&gt;
@@ -80,13 +94,18 @@ CloseableHttpResponse response = httpClient.execute(<b>httpPatch</b>);
 &lt;/dependency&gt;
 </pre>
             <p>
-            	If you're using HttpClient with lower version of 4.2 we can't use the PATCH method until you use one of the below techniques.
+                If you're using HttpClient with lower version of 4.2 we can't use the PATCH method until you use one of
+                the below techniques.
             </p>
             <h3><a id="tech1">Technique #1</a></h3>
             <p>
-            	This is a very simple technique to use. Hence the old version of HttpClient API doesn't have <a href="http://hc.apache.org/httpcomponents-client-ga/httpclient/apidocs/org/apache/http/client/methods/HttpPatch.html" target="_blank">HttpPatch</a> class, use <a target="_blank" href="http://hc.apache.org/httpcomponents-client-ga/httpclient/apidocs/org/apache/http/client/methods/HttpPost.html">HttpPost</a> class along with <i>_HttpMethod=PATCH</i> query string parameter in the URL. 
+                This is a very simple technique to use. Hence the old version of HttpClient API doesn't have <a
+                    href="http://hc.apache.org/httpcomponents-client-ga/httpclient/apidocs/org/apache/http/client/methods/HttpPatch.html"
+                    target="_blank">HttpPatch</a> class, use <a target="_blank"
+                                                                href="http://hc.apache.org/httpcomponents-client-ga/httpclient/apidocs/org/apache/http/client/methods/HttpPost.html">HttpPost</a>
+                class along with <i>_HttpMethod=PATCH</i> query string parameter in the URL.
             </p>
-<pre class="prettyprint linenums">
+            <pre class="prettyprint linenums">
 Map<String,String> reqData=new HashMap<String, String>();
 reqData.put("email", "info@techjira.com");
 		
@@ -97,16 +116,20 @@ httpPatch.setEntity(inputData);
 	
 CloseableHttpClient httpClient = HttpClients.createDefault();
 CloseableHttpResponse response = httpClient.execute(httpPatch);
-</pre>          
-			<p>
-				There are some concerns with this approach that we need to pass extra parameter and may not work if the service provider doesn't allow extra parameters.
-			</p>
-			<h3><a id="tech2">Technique #2</a></h3>
-			<p>
-				This is also similar to the <a href="#tech1">technique #1</a> and the only difference is we don't pass the query string. Instead, we will override the getMethod() method of <a target="_blank" href="http://hc.apache.org/httpcomponents-client-ga/httpclient/apidocs/org/apache/http/client/methods/HttpPost.html">HttpPost</a> class.
-			</p>
-			
-<pre class="prettyprint linenums">
+</pre>
+            <p>
+                There are some concerns with this approach that we need to pass extra parameter and may not work if the
+                service provider doesn't allow extra parameters.
+            </p>
+            <h3><a id="tech2">Technique #2</a></h3>
+            <p>
+                This is also similar to the <a href="#tech1">technique #1</a> and the only difference is we don't pass
+                the query string. Instead, we will override the getMethod() method of <a target="_blank"
+                                                                                         href="http://hc.apache.org/httpcomponents-client-ga/httpclient/apidocs/org/apache/http/client/methods/HttpPost.html">HttpPost</a>
+                class.
+            </p>
+
+            <pre class="prettyprint linenums">
 Map<String,String> reqData=new HashMap<String, String>();
 reqData.put("email", "info@techjira.com");
 		
@@ -125,10 +148,13 @@ CloseableHttpClient httpClient = HttpClients.createDefault();
 CloseableHttpResponse response = httpClient.execute(httpPatch);
 </pre>
 
-			<h2>Using Spring RestTemplate  </h2>
-			<p>
-			Spring <a href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/client/RestTemplate.html" target="_blank">RestTempate</a> class supports PATCH method only from 3.2 Version on words. Use below code if your using Spring 3.2 or above
-<pre class="prettyprint linenums">
+            <h2>Using Spring RestTemplate </h2>
+            <p>
+                Spring <a
+                    href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/client/RestTemplate.html"
+                    target="_blank">RestTempate</a> class supports PATCH method only from 3.2 Version on words. Use
+                below code if your using Spring 3.2 or above
+            <pre class="prettyprint linenums">
 String email="{\"email\":\"info@techjira.com\"}";
 HttpEntity<String> requestEntity = new HttpEntity<String>(email);
 
@@ -146,25 +172,30 @@ try {
 	...
 }
 </pre>
-			<p>
-			If your using <i><a href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/client/RestTemplate.html" target="_blank">RestTempate</a></i> class from 
-			Spring 3.1 or lower version then there is an issue that this version doesn't support PATCH method. You can refer issue detail from <a href="https://jira.spring.io/browse/SPR-7985" target="_blank">link</a>.
-			Use Apache HttpClient API along with <i><a href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/client/RestTemplate.html" target="_blank">RestTempate</a></i> class to solve this issue.
+            <p>
+                If your using <i><a
+                    href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/client/RestTemplate.html"
+                    target="_blank">RestTempate</a></i> class from
+                Spring 3.1 or lower version then there is an issue that this version doesn't support PATCH method. You
+                can refer issue detail from <a href="https://jira.spring.io/browse/SPR-7985" target="_blank">link</a>.
+                Use Apache HttpClient API along with <i><a
+                    href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/client/RestTemplate.html"
+                    target="_blank">RestTempate</a></i> class to solve this issue.
             </p>
             <p>
-             Note here the HttpClient API version is 4.2.
+                Note here the HttpClient API version is 4.2.
             </p>
-<pre class="prettyprint linenums">
+            <pre class="prettyprint linenums">
 RestTemplate restTemplate = new RestTemplate();
 CloseableHttpClient httpClient = HttpClients.createDefault()
 HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory(httpClient);
 
 restTemplate.setRequestFactory(requestFactory);
-</pre>           
-			<p>
-			or You can define this through even in your bean xml file.
-			</p>
-<pre class="prettyprint linenums">
+</pre>
+            <p>
+                or You can define this through even in your bean xml file.
+            </p>
+            <pre class="prettyprint linenums">
 &lt;bean id="httpClient" class="org.apache.http.impl.client.HttpClients" factory-method="createDefault"&gt; &lt;/bean&gt;
 &lt;bean id="restTemplate" class="org.springframework.web.client.RestTemplate"&gt;
 	 &lt;constructor-arg&gt;
@@ -173,34 +204,36 @@ restTemplate.setRequestFactory(requestFactory);
          &lt;/bean&gt;
      &lt;/constructor-arg&gt;
 &lt;/bean&gt;
-</pre>			
-			<p>
-				If you're using Apache HttpClient API 4.2 lower version, You can use <a href="#tech1">technique #1</a> which I mentioned in this article. 
-			</p>
-            <h2><a id="comments">Comment</a></h2>
-            
-            <script>
+</pre>
+            <p>
+                If you're using Apache HttpClient API 4.2 lower version, You can use <a href="#tech1">technique #1</a>
+                which I mentioned in this article.
+            </p>
+        </article>
+        <h2><a id="comments">Comments</a></h2>
+
+        <script>
             //prettyPrint();
             //view.showbookmarkbar();
-            </script>
-    
-    	</section>
-          <aside>
-              <div class="aside-section">
-                  <div class="aside-title">
-                    <h1>Recommended Articles</h1>
-                  </div>
-                  <div class="aside-contents list25px"> 
-                    <ol>
-                       <li><a href="/html/java/core/lambdaexp.html">Lambda Expression</a>
-                       <li><a href="/html/loadbalancer/nginx.html">Load balancer - Nginx</a>
-                    </ol>
-                  </div>
-   	 		  </div>
-            
-          </aside>
-       
-      </div>
-    </div>
+        </script>
+
+    </section>
+    <aside>
+        <div class="aside-section">
+            <div class="aside-title">
+                <h1>Recommended Articles</h1>
+            </div>
+            <div class="aside-contents list25px">
+                <ol>
+                    <li><a href="/html/java/core/lambdaexp.html">Lambda Expression</a>
+                    <li><a href="/html/loadbalancer/nginx.html">Load balancer - Nginx</a>
+                </ol>
+            </div>
+        </div>
+
+    </aside>
+
+</div>
+</div>
 </body>
 </html>

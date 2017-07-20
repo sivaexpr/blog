@@ -2,64 +2,94 @@
 <html>
 <head>
 
-    <META NAME="KEYWORDS" CONTENT="java, java 8, J2SE 8, Clouser, anonymous class, anonymous method, lambda expression, lambda expression, vertical problem">
-    
+    <META NAME="KEYWORDS"
+          CONTENT="java, java 8, J2SE 8, Clouser, anonymous class, anonymous method, lambda expression, lambda expression, vertical problem">
+
     <title>Techjira - Java 8 | Lambda Expressions</title>
 
-	<script src="/dist/app.min.js" type="application/javascript"></script>
+    <script src="/dist/app.min.js" type="application/javascript"></script>
 
 
 </head>
 
 <body>
-	
-    <div id="main-container">
-       <section>
-			<script type="text/javascript">
-                fbid=1;
-                twid=1;
-                postid=3101;
-            </script>
+
+<div id="main-container">
+    <section>
+        <script type="text/javascript">
+            fbid = 1;
+            twid = 1;
+            postid = 3101;
+        </script>
+        <article>
             <div id="leftbar-contents">
                 <div class="barcontents" id="indexcontents">
-                        <ul>
-                            <li><a href="#introduction">Introduction</a></li>
-                            <li><a href="#fi">Functional Interface</a></li>                            
-                            <li><a href="#le">Lambda expressions</a></li>
-                            <li><a href="#lec">Iterate with lambda expression</a></li> 
-                        </ul>
+                    <ul>
+                        <li><a href="#introduction">Introduction</a></li>
+                        <li><a href="#fi">Functional Interface</a></li>
+                        <li><a href="#le">Lambda expressions</a></li>
+                        <li><a href="#lec">Iterate with lambda expression</a></li>
+                    </ul>
                 </div>
             </div>
             <h2><a id="introduction">Introduction</a></h2>
-                <p>
-                	There are different kinds of programming languages like procedure oriented language, functional programming language and object oriented programming language.
-                </p>
-                <p>
-                	Java is, primarily, an object-oriented programming language. In both object-oriented and functional languages, basic values can dynamically encapsulate program behavior. Object oriented languages have objects with methods and functional languages have functions. Java enabled functional programming from J2SE 8.
-                </p>
-                <p>
-                	Java has different releases and each release has new APIs. From programming structure point of view, I like to divide these releases into 3 trends.
-                	<ol>
-	                	<li>Trend one is from the Java initial version to JDK 1.4. In these versions there are lot of enhanced API but the programming structure remains same. </li>
-	                	<li>Trend two is from J2SE 5 to J2SE 7. From J2SE 5 on words due to generics and annotations the programming structure got changed. </li>
-	                	<li>Trend three is started from J2SE 8. This version introduced lambda expressions and other features. Due this, the Java programming structure is changed and traditional Java developers need to adopt the functional programming along with object orient programming.</li>
-                	</ol>
-                </p>
-                <p>
-                	J2SE 8 included <a target="_blank" href="http://jcp.org/en/jsr/detail?id=335">JSR-335</a> which includes:
-                	<ol>
-                		<li>Lambda expressions and method reference - Till J2SE 8, Java was supporting only pass by value for methods. From version 8 onwards we can pass the behavior. That means we can pass the method to another method as argument.</li>
-                		<li>Enhanced interfaces and target types</li>
-                		<li>Default and static methods in interface - From now onwards we can't say that Interface contains only abstract methods. Yes, from version 8 Interface can contain methods with a definition.</li>
-                		
-                	</ol>
-                </p>
-                <p>
-                	Lambda expressions also called as closures. Closure is a function or a reference to a function together with referencing environment. Let's take a small Javascript example to explain this. If you don't understand the Javascript no problem, try to understand the concept.
-                </p>
-                <p>
-                	Example 1:
-<pre class="prettyprint linenums">
+            <p>
+                There are different kinds of programming languages like procedure oriented language, functional
+                programming
+                language and object oriented programming language.
+            </p>
+            <p>
+                Java is, primarily, an object-oriented programming language. In both object-oriented and functional
+                languages, basic values can dynamically encapsulate program behavior. Object oriented languages have
+                objects
+                with methods and functional languages have functions. Java enabled functional programming from J2SE 8.
+            </p>
+            <p>
+                Java has different releases and each release has new APIs. From programming structure point of view, I
+                like
+                to divide these releases into 3 trends.
+            <ol>
+                <li>Trend one is from the Java initial version to JDK 1.4. In these versions there are lot of enhanced
+                    API
+                    but the programming structure remains same.
+                </li>
+                <li>Trend two is from J2SE 5 to J2SE 7. From J2SE 5 on words due to generics and annotations the
+                    programming
+                    structure got changed.
+                </li>
+                <li>Trend three is started from J2SE 8. This version introduced lambda expressions and other features.
+                    Due
+                    this, the Java programming structure is changed and traditional Java developers need to adopt the
+                    functional programming along with object orient programming.
+                </li>
+            </ol>
+            </p>
+            <p>
+                J2SE 8 included <a target="_blank" href="http://jcp.org/en/jsr/detail?id=335">JSR-335</a> which
+                includes:
+            <ol>
+                <li>Lambda expressions and method reference - Till J2SE 8, Java was supporting only pass by value for
+                    methods. From version 8 onwards we can pass the behavior. That means we can pass the method to
+                    another
+                    method as argument.
+                </li>
+                <li>Enhanced interfaces and target types</li>
+                <li>Default and static methods in interface - From now onwards we can't say that Interface contains only
+                    abstract methods. Yes, from version 8 Interface can contain methods with a definition.
+                </li>
+
+            </ol>
+            </p>
+            <p>
+                Lambda expressions also called as closures. Closure is a function or a reference to a function together
+                with
+                referencing environment. Let's take a small Javascript example to explain this. If you don't understand
+                the
+                Javascript no problem, try to understand the concept.
+            </p>
+            <p>
+                Example 1:
+            <pre class="prettyprint linenums">
 function sayHello(name) {
   var text = 'Hello ' + name;
   var sayAlert = function() { 		
@@ -67,9 +97,9 @@ function sayHello(name) {
   }
   sayAlert();
 }
-</pre>              
-Example 2:
-<pre class="prettyprint linenums">
+</pre>
+            Example 2:
+            <pre class="prettyprint linenums">
 function sayHello(name) {
   var text = 'Hello ' + name;
   var sayAlert = function() { 		
@@ -77,71 +107,118 @@ function sayHello(name) {
   }
   return sayAlert;
 }
-</pre>               	
-                </p>
-                <p>
-                	In both the examples, <i>sayAlert</i> is a variable which holds the reference of behavior (anonymous methods) instead of the value. In example 1, <i>sayHello</i> method is calling the function through <i>sayAlert</i> variable. In the example 2, method is returning the variable <i>sayAlert</i> which is actually a reference of a behavior instead of value. Now try to read the closure definition again. Hope you understand.
-                </p>
-                <p>
-                	Now, coming to Java we need to learn enhanced interface feature like functional interface which is introduced J2SE 8 before going to lambda expressions. 
-                </p>
+</pre>
+            </p>
             <p>
-            	<b>Note </b> - if your using Eclipse IDE for development, you need to download <a target="_blank" href="https://www.eclipse.org/luna/">Luna</a> version to support Java 8.
+                In both the examples, <i>sayAlert</i> is a variable which holds the reference of behavior (anonymous
+                methods) instead of the value. In example 1, <i>sayHello</i> method is calling the function through <i>sayAlert</i>
+                variable. In the example 2, method is returning the variable <i>sayAlert</i> which is actually a
+                reference
+                of a behavior instead of value. Now try to read the closure definition again. Hope you understand.
+            </p>
+            <p>
+                Now, coming to Java we need to learn enhanced interface feature like functional interface which is
+                introduced J2SE 8 before going to lambda expressions.
+            </p>
+            <p>
+                <b>Note </b> - if your using Eclipse IDE for development, you need to download <a target="_blank"
+                                                                                                  href="https://www.eclipse.org/luna/">Luna</a>
+                version to support Java 8.
             </p>
             <h2><a id="fi">Functional Interface</a></h2>
-            	<p>
-            		A functional interface also called as callback interface is an interface that has just one abstract method. Do you remember any interface which has a single method declared in it? Yes, below are some interfaces which have only one method.
-					<ul class="no-liststyle">
-						<li><a target="_blank" href="http://docs.oracle.com/javase/8/docs/api/java/lang/Runnable.html">java.lang.Runnable</a></li>
-						<li><a target="_blank" href="http://docs.oracle.com/javase/8/docs/api/java/io/FileFilter.html">java.io.FileFilter</a></li>
-						<li><a target="_blank" href="http://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html">java.util.Comparator</a></li>
-						<li><a target="_blank" href="http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Callable.html">java.util.concurrent.Callable</a></li>
-            		</ul>
-            	</p>
-            	<p>
-            		So, if interface contains only one method declared in it means it's a functional interface? No. Below are the rules to say an interface as functional interface.
-            		<ol>
-            			<li>Interface should be annotated with <i>@FunctionalInterface</i>. This annotation is introduced in J2SE 8</li>
-            			<li>Interface should have only one abstract method</li>
-            		</ol>
-            	</p>
-            	<p>Java compiler may throw a compile-time error if code violates the functional interface rule. Now all existing interfaces which have a single abstract methods are annotated with <i>@FunctionalInterface</i>. If you have a de-compiler try to decompile the interfaces which have a single abstract method.</p>
-            	<p>
-            		See below example for functional interface.
-<pre class="prettyprint linenums">
+            <p>
+                A functional interface also called as callback interface is an interface that has just one abstract
+                method.
+                Do you remember any interface which has a single method declared in it? Yes, below are some interfaces
+                which
+                have only one method.
+            <ul class="no-liststyle">
+                <li><a target="_blank" href="http://docs.oracle.com/javase/8/docs/api/java/lang/Runnable.html">java.lang.Runnable</a>
+                </li>
+                <li><a target="_blank" href="http://docs.oracle.com/javase/8/docs/api/java/io/FileFilter.html">java.io.FileFilter</a>
+                </li>
+                <li><a target="_blank" href="http://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html">java.util.Comparator</a>
+                </li>
+                <li><a target="_blank"
+                       href="http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Callable.html">java.util.concurrent.Callable</a>
+                </li>
+            </ul>
+            </p>
+            <p>
+                So, if interface contains only one method declared in it means it's a functional interface? No. Below
+                are
+                the rules to say an interface as functional interface.
+            <ol>
+                <li>Interface should be annotated with <i>@FunctionalInterface</i>. This annotation is introduced in
+                    J2SE 8
+                </li>
+                <li>Interface should have only one abstract method</li>
+            </ol>
+            </p>
+            <p>Java compiler may throw a compile-time error if code violates the functional interface rule. Now all
+                existing
+                interfaces which have a single abstract methods are annotated with <i>@FunctionalInterface</i>. If you
+                have
+                a de-compiler try to decompile the interfaces which have a single abstract method.</p>
+            <p>
+                See below example for functional interface.
+            <pre class="prettyprint linenums">
 package com.techjira.ecom.order;
 
 @FunctionalInterface
 public interface OrderProcessListner {
    void processOrder(long orderid);
 }
-</pre>            		
-            	<i>OrderProcessListener</i> is an interface holds only one abstract method called <i>processOrder(long orderid)</i> .
-            	</p>
-            	<p>
-            		J2SE 8 also added a new package <a target="_blank" href="https://docs.oracle.com/javase/8/docs/api/java/util/function/package-summary.html">java.util.function</a> which contains a list of functional interfaces which can be used commonly.
-					<ul class="no-liststyle">
-						<li><a target="_blank" href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Predicate.html">Predicate</a></li>
-						<li><a target="_blank" href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Consumer.html">Consumer</a></li> 
-						<li><a target="_blank" href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html">Function</a> </li>
-						<li><a target="_blank" href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Supplier.html">Supplier</a> </li>
-						<li><a target="_blank" href="https://docs.oracle.com/javase/8/docs/api/java/util/function/UnaryOperator.html">UnaryOperator</a> </li>
-						<li><a target="_blank" href="https://docs.oracle.com/javase/8/docs/api/java/util/function/BinaryOperator.html">BinaryOperator</a> </li>
-            		</ul>
-            	</p>
-            	<p>
-            		You might have some questions in mind on functional interface like,
-            		<ol>
-						<li>How to use the functional interface?</li>
-						<li>What is the use of functional interface?</li>
-						<li>Why the functional interface have one abstract method?</li>
-					</ol>
-					May be you will get the answers by the end of this article. If still have a questions add your question in the comment section.
-            	</p>
+</pre>
+            <i>OrderProcessListener</i> is an interface holds only one abstract method called <i>processOrder(long
+            orderid)</i> .
+            </p>
+            <p>
+                J2SE 8 also added a new package <a target="_blank"
+                                                   href="https://docs.oracle.com/javase/8/docs/api/java/util/function/package-summary.html">java.util.function</a>
+                which contains a list of functional interfaces which can be used commonly.
+            <ul class="no-liststyle">
+                <li><a target="_blank"
+                       href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Predicate.html">Predicate</a>
+                </li>
+                <li><a target="_blank"
+                       href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Consumer.html">Consumer</a>
+                </li>
+                <li><a target="_blank"
+                       href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html">Function</a>
+                </li>
+                <li><a target="_blank"
+                       href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Supplier.html">Supplier</a>
+                </li>
+                <li><a target="_blank"
+                       href="https://docs.oracle.com/javase/8/docs/api/java/util/function/UnaryOperator.html">UnaryOperator</a>
+                </li>
+                <li><a target="_blank"
+                       href="https://docs.oracle.com/javase/8/docs/api/java/util/function/BinaryOperator.html">BinaryOperator</a>
+                </li>
+            </ul>
+            </p>
+            <p>
+                You might have some questions in mind on functional interface like,
+            <ol>
+                <li>How to use the functional interface?</li>
+                <li>What is the use of functional interface?</li>
+                <li>Why the functional interface have one abstract method?</li>
+            </ol>
+            May be you will get the answers by the end of this article. If still have a questions add your question in
+            the
+            comment section.
+            </p>
             <h2><a id="le">Lambda expressions</a></h2>
-            	<p>
-            		Lambda expression also called closure or anonymous method. Lambda expressions are aimed to address the <b>vertical problem</b>. Vertical problem means writing common lines of source code to encapsulate a single aspect of behavior. Let see this with some example. If you want to write a code in Java for thread, you may write like this,
-<pre class="prettyprint linenums">
+            <p>
+                Lambda expression also called closure or anonymous method. Lambda expressions are aimed to address the
+                <b>vertical
+                    problem</b>. Vertical problem means writing common lines of source code to encapsulate a single
+                aspect of
+                behavior. Let see this with some example. If you want to write a code in Java for thread, you may write
+                like
+                this,
+            <pre class="prettyprint linenums">
 public class AnonymousTest {
 
    public static void main(String[] args) {
@@ -157,18 +234,30 @@ public class AnonymousTest {
    }
 }
 
-</pre>             	In this example, whatever is highlighted from line 4 to line 6 i.e., creating an anonymous class and override the <i>run()</i> method is common for every time. This is called vertical problem. Lambda expressions will resolve this problem.
-            	</p>
-            	<p>
-            		Lambda expression is an anonymous method and the syntax looks like below.</p>
-            		<p><b>(&lt;argument(s)&gt;) -&gt; {&lt;body&gt;}</b></p>
-            	<p>
-            		Where &lt;arguments&gt; is a list of arguments for functional interface abstract method and the &lt;body&gt; is a logic to hold. Below is the comparison between lambda expression syntax and anonymous class definition to understand it better,
-					<p class="pageimage"><img src="lambda_expression.png"></p>            		
-            	</p>
-            	<p>
-            		The grayed out code is no more required now. We can use lambda expression only with functional interface. From J2SE 8 <a target="_blank" href="http://docs.oracle.com/javase/8/docs/api/java/lang/Runnable.html">Runnable</a> interface is a functional interface and by using above highlighted text in comparison diagram we can right the code like below.
-<pre class="prettyprint linenums">
+</pre>
+            In this example, whatever is highlighted from line 4 to line 6 i.e., creating an anonymous class and
+            override
+            the <i>run()</i> method is common for every time. This is called vertical problem. Lambda expressions will
+            resolve this problem.
+            </p>
+            <p>
+                Lambda expression is an anonymous method and the syntax looks like below.</p>
+            <p><b>(&lt;argument(s)&gt;) -&gt; {&lt;body&gt;}</b></p>
+            <p>
+                Where &lt;arguments&gt; is a list of arguments for functional interface abstract method and the &lt;body&gt;
+                is a logic to hold. Below is the comparison between lambda expression syntax and anonymous class
+                definition
+                to understand it better,
+            <p class="pageimage"><img src="lambda_expression.png"></p>
+            </p>
+            <p>
+                The grayed out code is no more required now. We can use lambda expression only with functional
+                interface.
+                From J2SE 8 <a target="_blank" href="http://docs.oracle.com/javase/8/docs/api/java/lang/Runnable.html">Runnable</a>
+                interface is a functional interface and by using above highlighted text in comparison diagram we can
+                right
+                the code like below.
+            <pre class="prettyprint linenums">
 public class AnonymousTest {
 
    public static void main(String[] args) {
@@ -178,8 +267,9 @@ public class AnonymousTest {
    }
 }
 
-</pre>            	We can write the class in another way,	
-<pre class="prettyprint linenums">
+</pre>
+            We can write the class in another way,
+            <pre class="prettyprint linenums">
 public class AnonymousTest {
 
    public static void main(String[] args) {
@@ -191,18 +281,18 @@ public class AnonymousTest {
 }
 
 </pre>
-            	</p>
-            	<p>
-            		Let see with other example. Below <i>OrderProcessListner</i> interface is a functional interface.
-<pre class="prettyprint linenums">
+            </p>
+            <p>
+                Let see with other example. Below <i>OrderProcessListner</i> interface is a functional interface.
+            <pre class="prettyprint linenums">
 package com.techjira.ecom.order;
 
 @FunctionalInterface
 public interface OrderProcessListner {
    void processOrder(long orderid);
 }
-</pre>     
-<pre class="prettyprint linenums">
+</pre>
+            <pre class="prettyprint linenums">
 package com.techjira.ecom.order.test;
 
 import com.techjira.ecom.order.OrderProcessListner;
@@ -215,56 +305,63 @@ public class OrderProcessListnerTest{
 }
 
 </pre>
-					In the above example, 123 value will be passed as an argument <i>oid</i> and then the body will be executed. Now the confusion point is how the body will be executed when you call <i>listener.processOrder(123)</i>. That's the reason functional interface has a constraint that it should have only on abstract method. Hence OrderProcessListner interface has only one abstract method, the JVM will automatically override <i>processOrder()</i> method. See below diagram to understand it better.
-					<p class="pageimage"><img src="lambda_example.png"></p> 
-            	</p>
-            	<h3>Lambda expression rules</h3>
-            	<p>
-            		We need to follow some rules while using lambda expression.
-            		<ol>
-            			<li>
-            				Lambda expression may contains zero, one or more arguments</br>
-            				If there no argument we need to use empty brackets. Ex.
-<pre class="prettyprint linenums">
+            In the above example, 123 value will be passed as an argument <i>oid</i> and then the body will be executed.
+            Now
+            the confusion point is how the body will be executed when you call <i>listener.processOrder(123)</i>. That's
+            the
+            reason functional interface has a constraint that it should have only on abstract method. Hence
+            OrderProcessListner interface has only one abstract method, the JVM will automatically override <i>processOrder()</i>
+            method. See below diagram to understand it better.
+            <p class="pageimage"><img src="lambda_example.png"></p>
+            </p>
+            <h3>Lambda expression rules</h3>
+            <p>
+                We need to follow some rules while using lambda expression.
+            <ol>
+                <li>
+                    Lambda expression may contains zero, one or more arguments</br>
+                    If there no argument we need to use empty brackets. Ex.
+                    <pre class="prettyprint linenums">
 Runnable r1=<b>()</b>->{
    System.out.println("Thread A..");
 }
-</pre>            				
-							If only one argument we can use with bracket or without bracket  like below,
-<pre class="prettyprint linenums">
+</pre>
+                    If only one argument we can use with bracket or without bracket like below,
+                    <pre class="prettyprint linenums">
 OrderProcessListner listener= <b>(oid)</b> -> {
    System.out.println("Order "+oid+" process start..");
 };
-</pre>							
-							or
-<pre class="prettyprint linenums">
+</pre>
+                    or
+                    <pre class="prettyprint linenums">
 OrderProcessListner listener= <b>oid</b> -> {
    System.out.println("Order "+oid+" process start..");
 };
 </pre>
-							If you have more than one argument we need to use bracket with comma (,) separated								
-            			</li>
-            			<li>
-            				The type of the parameters can be explicitly declared or it can be inferred from the context
-<pre class="prettyprint linenums">
+                    If you have more than one argument we need to use bracket with comma (,) separated
+                </li>
+                <li>
+                    The type of the parameters can be explicitly declared or it can be inferred from the context
+                    <pre class="prettyprint linenums">
 OrderProcessListner listener= <b>(long oid)</b> -> {
    System.out.println("Order "+oid+" process start..");
 };
-</pre>            				
-            			</li>
-            			<li>
-            				The body of the lambda expressions can contain zero, one or more statements. </br>
-            				If the body contains simple statement we can ignore the curly brackets({}). For example,
-<pre class="prettyprint">
+</pre>
+                </li>
+                <li>
+                    The body of the lambda expressions can contain zero, one or more statements. </br>
+                    If the body contains simple statement we can ignore the curly brackets({}). For example,
+                    <pre class="prettyprint">
 OrderProcessListner listener= oid -><b> System.out.println("Order "+oid+" process start..");</b>
-</pre>            				
-            			</li>
-            		</ol>
-            	</p>
-            	<h3>Key difference between anonymous class and Lambda expressions</h3>
-            	<ol>
-            		<li>Compiler will convert the lambda expression as private method for a class but anonymous class will generate new class. For example,
- <pre class="prettyprint linenums">
+</pre>
+                </li>
+            </ol>
+            </p>
+            <h3>Key difference between anonymous class and Lambda expressions</h3>
+            <ol>
+                <li>Compiler will convert the lambda expression as private method for a class but anonymous class will
+                    generate new class. For example,
+                    <pre class="prettyprint linenums">
 package com.techjira.ecom.order.test;
 import com.techjira.ecom.order.OrderProcessListner;
 
@@ -280,8 +377,12 @@ public class AnonymousTest {
 	  listener.processOrder(123);
    }
 }
-</pre>           		If you compile above file, two class files will be generated. One is <i>AnonymousTest.class</i> and another one is <i>AnonymousTest$1.class</i>. If you replace the above code with lambda expression like below,
- <pre class="prettyprint linenums">
+</pre>
+                    If you compile above file, two class files will be generated. One is <i>AnonymousTest.class</i> and
+                    another one is <i>AnonymousTest$1.class</i>. If you replace the above code with lambda expression
+                    like
+                    below,
+                    <pre class="prettyprint linenums">
 package com.techjira.ecom.order.test;
 import com.techjira.ecom.order.OrderProcessListner;
 
@@ -292,17 +393,20 @@ public class AnonymousTest {
 	  listener.processOrder(123);
    }
 }
-</pre>						
-						If you compile this code it will generate a single class <i>AnonymousTest.class</i> with private method <i>private static void lambda$0()</i>. 
-					</li>
-					<li>
-						Hence anonymous class generates new class, <b>this</b> key word refers to anonymous class. Lambda expression generate new method with in the class <b>this</b> key word refers to the parent class. 
-					</li>
-            	</ol>
+</pre>
+                    If you compile this code it will generate a single class <i>AnonymousTest.class</i> with private
+                    method
+                    <i>private static void lambda$0()</i>.
+                </li>
+                <li>
+                    Hence anonymous class generates new class, <b>this</b> key word refers to anonymous class. Lambda
+                    expression generate new method with in the class <b>this</b> key word refers to the parent class.
+                </li>
+            </ol>
             <h2><a id="lec">Iterate collection with lambda expression</a></h2>
-            	<p>
-            		Let's take an example before dig into the concept.
- <pre class="prettyprint linenums">
+            <p>
+                Let's take an example before dig into the concept.
+            <pre class="prettyprint linenums">
 package com.techjira.ecom;
 
 public class Item {
@@ -328,8 +432,8 @@ public class Item {
 		return price;
 	}
 }
- </pre>       
-  <pre class="prettyprint linenums">
+ </pre>
+            <pre class="prettyprint linenums">
 package com.techjira.test;
 
 import java.text.NumberFormat;
@@ -357,9 +461,17 @@ public class CollectionTest {
 		System.out.format("%0$-5s %0$-30s %0$-10s\n", item.getId(),item.getTitle(),price);
 	}
 }
-  </pre>     		
-  					If you see above example, I am trying to iterate the items by using extended for loop. But the iteration logic is written by me (extranel interation). From Java SE 8, iteration can be taken by JVM (internal iteration). What you can do is, you can tell to JVM  what need to be done while iteration. <a target="_blank" href="https://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html">java.lang.Iterable</a> interface added a new method <i>forEach()</i> which uses <a target="_blank" href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Consumer.html">java.util.function.Consumer</a> functional interface to iterate internally. See below example in new style.
-  <pre class="prettyprint linenums">
+  </pre>
+            If you see above example, I am trying to iterate the items by using extended for loop. But the iteration
+            logic
+            is written by me (extranel interation). From Java SE 8, iteration can be taken by JVM (internal iteration).
+            What
+            you can do is, you can tell to JVM what need to be done while iteration. <a target="_blank"
+                                                                                        href="https://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html">java.lang.Iterable</a>
+            interface added a new method <i>forEach()</i> which uses <a target="_blank"
+                                                                        href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Consumer.html">java.util.function.Consumer</a>
+            functional interface to iterate internally. See below example in new style.
+            <pre class="prettyprint linenums">
   package com.techjira.test;
 
 import java.text.NumberFormat;
@@ -385,32 +497,33 @@ public class CollectionTest {
 		System.out.format("%0$-5s %0$-30s %0$-10s\n", item.getId(),item.getTitle(),price);
 	}
 }
-  </pre>  					
-            	</p>
-            <h2><a id="comments">Comment</a></h2>
-            
-            <script>
+  </pre>
+            </p>
+        </article>
+        <h2><a id="comments">Comments</a></h2>
+
+        <script>
             //prettyPrint();
             //view.showbookmarkbar();
-            </script>
-    
-    	</section>
-          <aside>
-              <div class="aside-section">
-                  <div class="aside-title">
-                    <h1>Recommended Articles</h1>
-                  </div>
-                  <div class="aside-contents list25px"> 
-                    <ol>
-                       <li><a href="/html/java/rest/http_patch_verb.html">REST API - Using PATCH verb</a>
-                       <li><a href="/html/loadbalancer/nginx.html">Load balancer - Nginx</a>
-                    </ol>
-                  </div>
-   	 		  </div>
-            
-          </aside>
-       
-      </div>
-    </div>
+        </script>
+
+    </section>
+    <aside>
+        <div class="aside-section">
+            <div class="aside-title">
+                <h1>Recommended Articles</h1>
+            </div>
+            <div class="aside-contents list25px">
+                <ol>
+                    <li><a href="/html/java/rest/http_patch_verb.html">REST API - Using PATCH verb</a>
+                    <li><a href="/html/loadbalancer/nginx.html">Load balancer - Nginx</a>
+                </ol>
+            </div>
+        </div>
+
+    </aside>
+
+</div>
+</div>
 </body>
 </html>
