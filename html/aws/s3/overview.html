@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <META NAME="KEYWORDS"
+          CONTENT="cloud computing,amazon,aws,s3,sss,simple storage service,cloud storage,bucket">
+    <title>Techjira - AWS - Simple Storage Service</title>
+    <script src="/dist/app.min.js" type="application/javascript"></script>
+</head>
+<body>
+<div id="main-container">
+    <section>
+        <script type="text/javascript">
+            fbid = 1;
+        </script>
+        <article>
+            <div id="leftbar-contents">
+                <div class="barcontents" id="indexcontents">
+                    <ul>
+                        <li><a href="#introduction">Introduction</a></li>
+                        <li><a href="#key">Object key</a></li>
+                        <li><a href="#bucket">Bucket</a></li>
+                        <li><a href="#objecturl">Object URL</a></li>
+                        <li><a href="#bucket">Regions</a></li>
+                        <li><a href="#distribution">Object distribution</a></li>
+                        <li><a href="#performance">Performance</a></li>
+                        <li><a href="#versioning">Versioning</a></li>
+                        <li><a href="#clauses">Storage clauses</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <h2><a id="introduction">Introduction</a></h2>
+                <p>
+                    S3 (Simple Storage Service) is one of the core services provided by Amazon to store the information
+                    in
+                    AWS cloud. This information could be binary files, images, multimedia files, text file or any other
+                    data. S3 looks like as a file or block storage but works differently. Before using this service
+                    first we
+                    need to understand few basic things that why not to use traditional approach to store the objects.
+                </p>
+                <p>
+                    Before choosing any storage there are various points to considered. Mainly, scalability,
+                    availability
+                    and durability. As mentioned, Amazon S3 is a cloud storage. That means the size of the storage is
+                    not
+                    fixed and can scale till unlimited. Where traditional approach(file or block storage) has a fixed
+                    size and need to increase the size.
+                    Availability means "Can I access my data right now?" once it is stored. Amazon S3 promises 99.99%
+                    of availability. Durability means "Will my data is available in future?". Amazon promises
+                    99.999999999%
+                    of durability. That means once you store the data in S3, the chances of loosing it is almost not
+                    possible. For example if you store 10,000 files in S3, chances of loosing a file is every
+                    10,000,000 years.
+                </p>
+            </div>
+            <div>
+                <h2><a id="key">Object Key</a></h2>
+                <p>
+                    The file which we store in Amazon S3 is called object. Each object size could be minimum 0 bytes to
+                    maximum 5TB. Each object will have a name called object key. This key name length could be minimum 1
+                    character to maximum size of 1024 bytes in unicode format. For example, if you store a log file in
+                    S3
+                    with the file name application.log then <i>application.log</i> is a key. Once we store an object in
+                    S3, object can be accessed over internet with object key. Hence the S3 object can be accessed over
+                    internet, the key name should follow with DNS name standards. Which means we can use the key name
+                    with
+                    slashes(/), backslashes(\), dots(.) and dashes(-).
+                </p>
+            </div>
+            <div>
+                <h2><a id="bucket">Bucket</a></h2>
+                <p>
+                    Imagine that if we have mix of different files, how we will organise? The first thing comes into our
+                    mind is
+                    create a separate folders and move each files into specific folders. Bucket is similar to folder. we
+                    can
+                    use bucket to group similar objects(files) into one place. we can store objects only in buckets. S3
+                    doesn't have any default bucket. If we
+                    want to upload any object into S3, first we need to create a bucket first. Please note that we can't
+                    create bucket inside the bucket something like sub-folders.
+                </p>
+                <p>
+                    Bucket name follows with DNS standards and may have maximum 63 letters. The URL domain name starts
+                    with your bucket name when we access the S3 object through internet. What it means? The name of the
+                    bucket should be a unique across all AWS account through out world. Once you create a bucket think
+                    twice to delete the bucket. Once you delete the bucket you may or may not get the same name.
+                </p>
+            </div>
+            <div>
+                <h2><a id="objecturl">Object URL</a></h2>
+                <p>
+                    As mentioned above sections, first we need to create a unique bucket and then we can upload objects.
+                    To access these objects over internet, the URL format looks like below.
+                </p>
+                <p>
+                <h1>http://&lt;bucket name&gt;.s3.amazonaws.com/&lt;object key&gt;</h1></p>
+                <p>
+                    For example, if you want to archive application logs into S3 and the bucket name is <b>techjira</b>
+                    and uploaded object is application.log then the URL looks
+                    like, http://techjira.s3.amazonaws.com/application.log. Let say - you have two applications and if
+                    want to archive these logs in file systems, usually will store like below,
+                </p>
+                <svg width="640" height="480" xmlns="http://www.w3.org/2000/svg">
+                    <title>logs structure</title>
+                    <g>
+                        <title>logs</title>
+                        <text xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" id="svg_1" y="53" x="212" stroke-width="0" stroke="#000000" fill="#ff7f00">techjira</text>
+                        <text xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" id="svg_2" y="80" x="219" stroke-width="0" stroke="#000000" fill="#ff7f00">- logs</text>
+                        <text style="cursor: move;" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" id="svg_3" y="105" x="249" stroke-width="0" stroke="#000000" fill="#ff7f00">- app1</text>
+                        <text xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" id="svg_4" y="133" x="354" stroke-width="0" stroke="#000000" fill="#000000">- application-010116.log</text>
+                        <text style="cursor: move;" id="svg_5" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="161.5" x="247.570313" stroke-width="0" stroke="#000000" fill="#ff7f00">- app2</text>
+                        <text id="svg_6" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="189.5" x="352.570313" stroke-width="0" stroke="#000000" fill="#000000">- application-010116.log</text>
+                    </g>
+                </svg>
+
+                <p>
+                    If you want to store the same structure in S3 then we need to use slashes(/) for each folder. In
+                    this scenario, we will have two object and each object key looks like below.
+                <ul>
+                    <li>https://techjira.s3..amazonaws.com/logs/app1/application-010116.log</li>
+                    <li>https://techjira.s3..amazonaws.com/logs/app2/application-010116.log</li>
+                </ul>
+                in above URL, logs/app1/application-010116.log and logs/app2/application-010116.log are object keys. For
+                convenience purpose AWS console show the folder structure but actually there is no folder structure in
+                S3.
+                </p>
+                <p>
+                    As you see, the domain holds the bucket name, hence the bucket name should be unique globally all
+                    aws
+                    accounts. When I started using S3 got bit incontinence that we can't create sub folders and every
+                    time
+                    I need to search a new bucket name when I need to create new. I saw lot of posts on internet asking
+                    why not to use another notation to access the bucket over internet something like
+                    https://s3.amazonaws.com/techjira/application.log or another way which fit for REST API. After that
+                    I realised that there are number of reasons why Amazon use this notation. One of that is static web
+                    hosting through S3. In static web hosting we will use S3 bucket act like as http server and in this
+                    case we need to access bucket as domain.
+                </p>
+            </div>
+        </article>
+        <h2><a id="comments">Comments</a></h2>
+
+    </section>
+</div>
+</body>
+</html>

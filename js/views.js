@@ -143,7 +143,7 @@ view.showbookmarkbar = () => {
     //$('.leftbar').fadeIn();
     var bookmarkcontents = $('#leftbar-contents').html();
     if (typeof bookmarkcontents != 'undefined') {
-        barhtml = barhtml + '<div class="baritem" id="index" title="Index"><i class="fa fa-bookmark" aria-hidden="true"></i>' + bookmarkcontents + '</div>';
+        barhtml = barhtml + '<div class="baritem" id="index"><i class="fa fa-bookmark" aria-hidden="true"></i>' + bookmarkcontents + '</div>';
         flag = true;
     }
     /*if(typeof bookmarkcontents=='undefined'){

@@ -217,7 +217,7 @@ nav ul li:HOVER {
     color: #603;
 }
 
-.nav-sub-left ul li:HOVER {
+.nav-sub-left ul li:HOVER{
     /*background-color: #c7e6f5;*/
     background-color: white;
     border-radius: 8px 0 0 8px
@@ -637,8 +637,7 @@ footer span {
 }
 
 .baritem {
-    width: 25px;
-    height: 25px;
+
     display: block;
     text-align: center;
     font-weight: bolder;
@@ -688,6 +687,8 @@ footer span {
     display: none;
     text-align: left;
     font-weight: normal;
+    margin-top: -30px;
+    font-size: 0.9rem;
 }
 
 .barcontents ul {
