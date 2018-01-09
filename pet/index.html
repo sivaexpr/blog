@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pet clinic</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="app.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="w3-container title">
+    <div class="w3-white ">
+        <h4 href="#home" class="w3-bar-item w3-xlarge"><img src="img/logo.png" width="60" height="50">Pet clinic</h4>
+    </div>
+</div>
+
+<header>
+    <div class="w3-bar w3-white w3-card">
+        <div class="options ">
+            <a href="#" class="w3-bar-item w3-button w3-blue" id="home">
+                <div class="fa fa-home w3-col m12 s12 w3-padding" aria-hidden="true"></div>
+                Home
+            </a>
+            <a href="#" class="w3-bar-item w3-button w3-hover-blue" id="clients">
+                <div class="fa fa-user w3-col m12 s12 w3-padding" aria-hidden="true"></div>
+                Clients
+            </a>
+            <a href="#" class="w3-bar-item w3-button w3-hover-blue" id="reception">
+                <div class="fa fa-phone w3-col m12 s12 w3-padding" aria-hidden="true"></div>
+                Reception
+            </a>
+            <a href="#" class="w3-bar-item w3-button w3-hover-blue" id="reports">
+                <div class="fa fa-hospital-o w3-col m12 s12 w3-padding" aria-hidden="true"></div>
+                Reports
+            </a>
+            <a href="#" class="w3-bar-item w3-button w3-hover-blue" id="settings">
+                <div class="fa fa-cogs w3-col m12 s12 w3-padding" aria-hidden="true"></div>
+                settings
+            </a>
+            <a href="#" class="w3-bar-item w3-button w3-right w3-hover-blue" id="tools">
+                <div class="fa fa-th-large w3-col m12 s12 w3-padding" aria-hidden="true"></div>
+                Tools
+            </a>
+        </div>
+    </div>
+</header>
+
+<div class="searchSection">
+    <div class="search w3-col m12 s12">
+        <div class="w3-container w3-blue w3-padding" id="searchBar" style="display: none">
+            <input id="search" class="w3-input w3-col m4 s6" placeholder="Client name. Type H to see the results">
+        </div>
+        <ul class="w3-padding w3-ul w3-hoverable w3-border w3-col m4 s6" id="searchResults"
+            style="display: none">
+        </ul>
+    </div>
+</div>
+<div class="w3-container w3-margin-top  w3-white" id="clientDetailsSection" style="display: none">
+    <div class="w3-col m12 s12 w3-border">
+        <header class="w3-padding section-header"><b>Client Details</b>
+            <span class="clickable fa fa-2x fa-pencil-square-o" style="float: right" id="clientEdit"></span>
+        </header>
+
+        <div class="w3-padding">
+            <span class="w3-col s3 m3 w3-large" id="name">Miss S Hope</span>
+            <div class="w3-col m3 s3">
+                <span class="w3-col m1 s1 fa fa-map-marker"></span>
+                <div class="w3-col m11 s11">
+                    <span id="addr1">161 Button streat</span>
+                    <div id="addr2">Ramstottom</div>
+                    <div id="addr3">Bury</div>
+                    <div id="city">Lancashire</div>
+                    <div id="pin">BL0 9JD</div>
+                </div>
+            </div>
+            <div class="w3-col m3 s3">
+                <div>
+                    <span class="w3-col m1 s1 fa fa-mobile-phone"> </span>
+                    <span id="mobile">(0)1234 567 890</span>
+                </div>
+                <div>
+                    <span class="w3-col m1 s1 fa fa-phone"></span>
+                    <span id="phone">(0)1234 567 890</span>
+                </div>
+            </div>
+            <div class="w3-right-align"><b>Balance - £0</b></div>
+        </div>
+    </div>
+
+</div>
+
+<div class="w3-container w3-margin-top w3-margin-bottom w3-white" id="petSection" style="display: none">
+    <div class="w3-border">
+        <header class="w3-padding section-header"><b>Pets</b></header>
+        <div class="w3-padding">
+            <table class="w3-table-all w3-hoverable w3-centered" id="petDetails">
+                <thead>
+                <tr class="table-head">
+                    <th>Name</th>
+                    <th>Species</th>
+                    <th>Gendar</th>
+                    <th>Age</th>
+                    <th>Weight(kg.)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr id="row1" class="clickable">
+                    <td>Zggy</td>
+                    <td>Feline</td>
+                    <td><i class="fa fa-mars" aria-hidden="true"></i></td>
+                    <td>0y 6m 27d</td>
+                    <td>0</td>
+                </tr>
+                <tr id="row2" class="clickable">
+                    <td>XYZ</td>
+                    <td>Feline</td>
+                    <td><i class="fa fa-venus" aria-hidden="true"></i></td>
+                    <td>0y 6m 27d</td>
+                    <td>0.5</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="actions w3-card w3-padding w3-center" style="display: none" id="actionSection">
+    <span onclick="document.getElementById('actionSection').style.display='none'"
+          class="w3-button w3-display-topright  w3-hover-blue">&times;</span>
+    <ul class="w3-ul">
+        <li class="item"><a class="logo action-fa w3-circle fa fa-3x w3-center fa-list-alt"></a>Notes</li>
+        <li class="item"><a class="logo w3-circle"><img class="w3-circle " src="img/boarding.png"></a>Boarding</li>
+        <li class="item"><a class="logo w3-circle"><img class="w3-circle " src="img/training.png"></a>Training</li>
+        <li class="item"><a class="logo w3-circle"><img class="w3-circle " src="img/insure.jpg"></a>Insure</li>
+        <li class="item"><a class="logo action-fa  w3-circle  fa fa-3x fa-paw"></a>Day care</li>
+
+    </ul>
+</div>
+
+<div id="clientEditModal" class="w3-modal">
+    <div class="w3-modal-content">
+        <div class="w3-card">
+            <span onclick="document.getElementById('clientEditModal').style.display='none'"
+                  class="w3-button w3-display-topright w3-hover-blue w3-text-white">&times;</span>
+            <header class="w3-container w3-blue">
+                <h4>Client Details</h4>
+            </header>
+
+            <div class="w3-panel w3-padding">
+                <div class="w3-row-padding">
+                    <div class="w3-col m3">&nbsp;</div>
+
+                    <div class="w3-col m12 s12">
+                        <div>
+                            <div>
+                                <div class="w3-col m3 s3">
+                                    <label>Title</label>
+                                    <div>
+                                        <select class="w3-button w3-border w3-hover-white">
+                                            <option value="Miss">Miss</option>
+                                            <option value="Mrs">Mrs</option>
+                                            <option value="Mr">Mr</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="w3-margin w3-col m12 s12">
+                    <div class="w3-row">
+                        <div>
+                            <div class="w3-col m3 s3">
+                                <label>First name</label>
+                                <input type="input" name="action" class="w3-input w3-border">
+                            </div>
+
+                            <div class="pdding-left w3-col m4 s4">
+                                <label>Last name</label>
+                                <input type="input" name="action" class="w3-input w3-border">
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="w3-margin w3-col m12 s12">
+                    <div class="w3-row">
+                        <div>
+                            <div class="w3-col m3 s3">
+                                <label>Address 1</label>
+                                <input type="input" name="action" class="w3-input w3-border">
+                            </div>
+
+                            <div class="pdding-left w3-col m4 s4">
+                                <label>Address 2</label>
+                                <input type="input" name="action" class="w3-input w3-border">
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="w3-margin w3-col m12 s12">
+                    <div class="w3-row">
+                        <div>
+                            <div class="w3-col m3 s3">
+                                <label>City</label>
+                                <input type="input" name="action" class="w3-input w3-border">
+                            </div>
+
+                            <div class="pdding-left w3-col m4 s4">
+                                <label>Postcode</label>
+                                <input type="input" name="action" class="w3-input w3-border">
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="w3-margin w3-col s12 m12 w3-center">
+                    <button id="transactionSubmit" class=" w3-btn w3-green w3-hover-light-green ">Submit</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div class="empty"></div>
+</body>
+</html>
